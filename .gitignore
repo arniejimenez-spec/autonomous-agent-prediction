@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+submissions/*/output/
+submissions/*/work/
+submissions/*/submission.zip
+data/
+*.log

@@ -1,0 +1,12 @@
+name: robust_tabular_automl
+description: Budget-aware autonomous binary tabular classification agent.
+model: gemini-3.1-flash-lite
+instruction: !include prompts/system.md
+tools:
+  - run_command
+  - submit_predictions
+  - select_submission
+  - get_status
+skills:
+  - skills/tabular-automl
+generate_content_config: !include configs/sampling.yaml
