@@ -2,26 +2,29 @@
 from __future__ import annotations
 
 import base64
+import argparse
 import json
 from pathlib import Path
 
 import nbformat as nbf
 
 ROOT = Path(__file__).resolve().parents[1]
-AGENT = ROOT / "submissions/01_robust_automl/agent"
-OUTPUT = ROOT / "notebooks/build_agent_submission.ipynb"
-
-
-def payload() -> dict[str, str]:
+def payload(agent: Path) -> dict[str, str]:
     result = {}
-    for path in sorted(AGENT.rglob("*")):
+    for path in sorted(agent.rglob("*")):
         if path.is_file():
-            result[path.relative_to(AGENT).as_posix()] = base64.b64encode(path.read_bytes()).decode("ascii")
+            result[path.relative_to(agent).as_posix()] = base64.b64encode(path.read_bytes()).decode("ascii")
     return result
 
 
 def main() -> None:
-    files = json.dumps(payload(), sort_keys=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--experiment", default="01_robust_automl")
+    parser.add_argument("--output")
+    args = parser.parse_args()
+    agent = ROOT / "submissions" / args.experiment / "agent"
+    output = Path(args.output) if args.output else ROOT / "notebooks" / "build_agent_submission.ipynb"
+    files = json.dumps(payload(agent), sort_keys=True)
     nb = nbf.v4.new_notebook()
     nb["metadata"].update({
         "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
@@ -64,9 +67,9 @@ def main() -> None:
             "The notebook output named `submission.zip` is the artifact to submit to the competition."
         ),
     ]
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    nbf.write(nb, OUTPUT)
-    print(OUTPUT)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    nbf.write(nb, output)
+    print(output)
 
 
 if __name__ == "__main__":

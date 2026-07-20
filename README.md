@@ -5,8 +5,10 @@ This repository contains a competition-ready Agent Config for Kaggle's Autonomou
 ## What is included
 
 - `submissions/01_robust_automl/agent/` — uploadable Agent Config source
+- `submissions/02_order_aware_automl/agent/` — controlled order-aware v2 Agent Config
 - `submissions/01_robust_automl/submission.zip` — locally generated Kaggle artifact (excluded from Git; rebuilt by the notebook or CI)
 - `notebooks/build_agent_submission.ipynb` — self-contained Kaggle notebook that rebuilds the ZIP
+- `notebooks/build_agent_submission_v2.ipynb` — self-contained v2 Kaggle notebook
 - `scripts/meta_evaluate.py` — evaluates the deterministic ML skill on the 16 solved tasks
 - `scripts/build_notebook.py` — regenerates the self-contained notebook from the agent directory
 - `scripts/package_submission.py` — cross-platform Agent Config packager
@@ -14,6 +16,11 @@ This repository contains a competition-ready Agent Config for Kaggle's Autonomou
 - `kaggle-kaggle-skill/` — organizer-supplied competition documentation
 
 The organizer-supplied `sample_submission/` is intentionally unchanged.
+
+## Current versions
+
+- **v1** scored **0.781 AUC** in the black-box competition evaluation.
+- **v2** preserves explicit ordinal ordering alongside categorical representations and adds a top-two rank blend. Across the 16 solved tasks it improves mean best-candidate AUC from 0.80209 to 0.80241 and simulated public-selected private AUC from 0.80285 to 0.80320.
 
 ## Architecture
 
@@ -46,6 +53,7 @@ For full agent evaluation, copy `.env.example` to `.env`, add the API key for th
 ```powershell
 .\.venv\Scripts\python.exe validate_submission.py --agent-dir submissions/01_robust_automl/agent
 .\.venv\Scripts\python.exe scripts/package_submission.py
+.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 02_order_aware_automl
 ```
 
 The ZIP must contain `agent.yaml` at its root. Never zip the parent `agent/` directory itself.
@@ -78,6 +86,7 @@ Regenerate the notebook after changing any agent file:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py
+.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 02_order_aware_automl --output notebooks/build_agent_submission_v2.ipynb
 ```
 
 ## Official local agent evaluation

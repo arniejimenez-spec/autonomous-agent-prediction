@@ -12,16 +12,15 @@ import pandas as pd
 from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).resolve().parents[1]
-AUTOML = ROOT / "submissions/01_robust_automl/agent/skills/tabular-automl/scripts/automl.py"
-
-
-def evaluate(dataset: str, fast: bool) -> dict:
+def evaluate(dataset: str, fast: bool, experiment: str) -> dict:
     source = ROOT / "data" / dataset
-    with tempfile.TemporaryDirectory(prefix=f"{dataset}_", dir=ROOT / "submissions/01_robust_automl") as tmp:
+    experiment_dir = ROOT / "submissions" / experiment
+    automl = experiment_dir / "agent/skills/tabular-automl/scripts/automl.py"
+    with tempfile.TemporaryDirectory(prefix=f"{dataset}_", dir=experiment_dir) as tmp:
         work = Path(tmp)
         for name in ("train.csv", "test.csv", "sample_submission.csv"):
             shutil.copy2(source / name, work / name)
-        cmd = [str(ROOT / ".venv/Scripts/python.exe"), str(AUTOML)]
+        cmd = [str(ROOT / ".venv/Scripts/python.exe"), str(automl)]
         if fast:
             cmd.append("--fast")
         completed = subprocess.run(cmd, cwd=work, capture_output=True, text=True, timeout=3300)
@@ -46,15 +45,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("datasets", nargs="*", default=[f"train_{i:02d}" for i in range(1, 17)])
     parser.add_argument("--fast", action="store_true")
-    parser.add_argument("--output", default="submissions/01_robust_automl/meta_results.json")
+    parser.add_argument("--experiment", default="01_robust_automl")
+    parser.add_argument("--output")
     args = parser.parse_args()
     results = []
     for dataset in args.datasets:
-        result = evaluate(dataset, args.fast)
+        result = evaluate(dataset, args.fast, args.experiment)
         results.append(result)
         best = max(result["scores"], key=lambda x: x["test_auc"])
         print(dataset, f"best_test_auc={best['test_auc']:.6f}", best["file"], flush=True)
-    Path(args.output).write_text(json.dumps(results, indent=2), encoding="utf-8")
+    output = args.output or f"submissions/{args.experiment}/meta_results.json"
+    Path(output).write_text(json.dumps(results, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

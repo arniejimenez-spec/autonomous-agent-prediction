@@ -3,18 +3,20 @@ from __future__ import annotations
 
 import json
 import statistics
+import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPERIMENT = ROOT / "submissions/01_robust_automl"
-
-
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--experiment", default="01_robust_automl")
+    args = parser.parse_args()
+    experiment = ROOT / "submissions" / args.experiment
     records = []
     for name in ("meta_results_smoke.json", "meta_results_remaining.json"):
-        records.extend(json.loads((EXPERIMENT / name).read_text(encoding="utf-8")))
+        records.extend(json.loads((experiment / name).read_text(encoding="utf-8")))
     records.sort(key=lambda item: item["dataset"])
-    (EXPERIMENT / "meta_results_all.json").write_text(json.dumps(records, indent=2), encoding="utf-8")
+    (experiment / "meta_results_all.json").write_text(json.dumps(records, indent=2), encoding="utf-8")
     best_test_values, selected_private_values = [], []
     print("dataset best_test best_public private_of_public candidate")
     for record in records:

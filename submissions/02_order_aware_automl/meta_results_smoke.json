@@ -1,0 +1,226 @@
+[
+  {
+    "dataset": "train_14",
+    "elapsed_seconds": 229.0,
+    "scores": [
+      {
+        "file": "candidate_01_catboost_d6.csv",
+        "cv_auc": 0.8048408660476414,
+        "test_auc": 0.8050387855508883,
+        "test_private": 0.8100836186441925,
+        "test_public": 0.8001231683153109
+      },
+      {
+        "file": "candidate_02_blend.csv",
+        "cv_auc": 0.8047223917002795,
+        "test_auc": 0.8059430430573136,
+        "test_private": 0.8104590992561755,
+        "test_public": 0.8015074118589745
+      },
+      {
+        "file": "candidate_03_top2_blend.csv",
+        "cv_auc": 0.8021152752644236,
+        "test_auc": 0.8051727681447912,
+        "test_private": 0.8091159139772559,
+        "test_public": 0.8012374111677725
+      },
+      {
+        "file": "candidate_04_broad_blend.csv",
+        "cv_auc": 0.791965205596515,
+        "test_auc": 0.7944234600381863,
+        "test_private": 0.7979721486675998,
+        "test_public": 0.7908979446987384
+      },
+      {
+        "file": "candidate_05_lightgbm.csv",
+        "cv_auc": 0.7905408550901015,
+        "test_auc": 0.7988286253221862,
+        "test_private": 0.801547175342485,
+        "test_public": 0.7960589979110347
+      },
+      {
+        "file": "candidate_06_extra_trees.csv",
+        "cv_auc": 0.7289117606821426,
+        "test_auc": 0.7356244016884166,
+        "test_private": 0.7380177439991911,
+        "test_public": 0.7332999572478905
+      },
+      {
+        "file": "candidate_07_logistic.csv",
+        "cv_auc": 0.685504957800504,
+        "test_auc": 0.6803154509071295,
+        "test_private": 0.679432527422166,
+        "test_public": 0.6813195041779306
+      }
+    ],
+    "stdout": "{\"categorical\": 15, \"features\": 23, \"folds\": 3, \"models\": [\"extra_trees\", \"logistic\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 19, \"rows\": 11108, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.728912 folds=0.72919,0.73327,0.72436\nMODEL logistic cv_auc=0.685505 folds=0.68932,0.69444,0.67307\nMODEL catboost_d6 cv_auc=0.804841 folds=0.79926,0.81026,0.80538\nMODEL lightgbm cv_auc=0.790541 folds=0.78351,0.79887,0.78986\nCANDIDATES candidate_01_catboost_d6.csv candidate_02_blend.csv candidate_03_top2_blend.csv candidate_04_broad_blend.csv candidate_05_lightgbm.csv candidate_06_extra_trees.csv candidate_07_logistic.csv\nDONE elapsed_seconds=229.0\n"
+  },
+  {
+    "dataset": "train_15",
+    "elapsed_seconds": 93.6,
+    "scores": [
+      {
+        "file": "candidate_01_blend.csv",
+        "cv_auc": 0.856992,
+        "test_auc": 0.8603069588420207,
+        "test_private": 0.863057326879584,
+        "test_public": 0.857355361635726
+      },
+      {
+        "file": "candidate_02_broad_blend.csv",
+        "cv_auc": 0.856536,
+        "test_auc": 0.8604488190462993,
+        "test_private": 0.8626790549716228,
+        "test_public": 0.8580289003823708
+      },
+      {
+        "file": "candidate_03_top2_blend.csv",
+        "cv_auc": 0.852704,
+        "test_auc": 0.8521527871000134,
+        "test_private": 0.854561933602437,
+        "test_public": 0.8495972612838948
+      },
+      {
+        "file": "candidate_04_catboost_d6.csv",
+        "cv_auc": 0.843808,
+        "test_auc": 0.850065584094441,
+        "test_private": 0.8536739909134717,
+        "test_public": 0.8463433712695069
+      },
+      {
+        "file": "candidate_05_lightgbm.csv",
+        "cv_auc": 0.8378399999999999,
+        "test_auc": 0.837242325628949,
+        "test_private": 0.8387194867729668,
+        "test_public": 0.8355984434980543
+      },
+      {
+        "file": "candidate_06_logistic.csv",
+        "cv_auc": 0.828928,
+        "test_auc": 0.8529250282120406,
+        "test_private": 0.8545025560361778,
+        "test_public": 0.8511170451240548
+      },
+      {
+        "file": "candidate_07_extra_trees.csv",
+        "cv_auc": 0.78748,
+        "test_auc": 0.7678704857334995,
+        "test_private": 0.7710073748217673,
+        "test_public": 0.764496729063437
+      }
+    ],
+    "stdout": "{\"categorical\": 24, \"features\": 30, \"folds\": 3, \"models\": [\"extra_trees\", \"logistic\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 23, \"rows\": 500, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.787480 folds=0.83290,0.76922,0.76383\nMODEL logistic cv_auc=0.828928 folds=0.85800,0.81569,0.81579\nMODEL catboost_d6 cv_auc=0.843808 folds=0.90777,0.83749,0.84453\nMODEL lightgbm cv_auc=0.837840 folds=0.86446,0.82415,0.82174\nCANDIDATES candidate_01_blend.csv candidate_02_broad_blend.csv candidate_03_top2_blend.csv candidate_04_catboost_d6.csv candidate_05_lightgbm.csv candidate_06_logistic.csv candidate_07_extra_trees.csv\nDONE elapsed_seconds=93.6\n"
+  },
+  {
+    "dataset": "train_10",
+    "elapsed_seconds": 116.2,
+    "scores": [
+      {
+        "file": "candidate_01_top2_blend.csv",
+        "cv_auc": 0.8471467100899492,
+        "test_auc": 0.8529019070038036,
+        "test_private": 0.8575711547745865,
+        "test_public": 0.8483002157280344
+      },
+      {
+        "file": "candidate_02_blend.csv",
+        "cv_auc": 0.8459632653370787,
+        "test_auc": 0.8534691447923808,
+        "test_private": 0.8583843041919721,
+        "test_public": 0.8485739757718361
+      },
+      {
+        "file": "candidate_03_lightgbm.csv",
+        "cv_auc": 0.8420877132381028,
+        "test_auc": 0.8522448063971286,
+        "test_private": 0.8574187342648827,
+        "test_public": 0.8470630155300825
+      },
+      {
+        "file": "candidate_04_catboost_d6.csv",
+        "cv_auc": 0.841241322353177,
+        "test_auc": 0.8465875089842817,
+        "test_private": 0.85062854057642,
+        "test_public": 0.8425942148150742
+      },
+      {
+        "file": "candidate_05_broad_blend.csv",
+        "cv_auc": 0.8352607959510214,
+        "test_auc": 0.8414709285283186,
+        "test_private": 0.8460000777704648,
+        "test_public": 0.8370258939241431
+      },
+      {
+        "file": "candidate_06_extra_trees.csv",
+        "cv_auc": 0.7636819307755562,
+        "test_auc": 0.7748227384410775,
+        "test_private": 0.7790683514373694,
+        "test_public": 0.7705682832909254
+      },
+      {
+        "file": "candidate_07_logistic.csv",
+        "cv_auc": 0.6031932683110242,
+        "test_auc": 0.6010150878331544,
+        "test_private": 0.5999031229642261,
+        "test_public": 0.6021816963490714
+      }
+    ],
+    "stdout": "{\"categorical\": 0, \"features\": 27, \"folds\": 3, \"models\": [\"extra_trees\", \"logistic\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 27, \"rows\": 11800, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.763682 folds=0.75033,0.77573,0.76518\nMODEL logistic cv_auc=0.603193 folds=0.59695,0.60281,0.61009\nMODEL catboost_d6 cv_auc=0.841241 folds=0.83571,0.84984,0.83828\nMODEL lightgbm cv_auc=0.842088 folds=0.84408,0.84611,0.83613\nCANDIDATES candidate_01_top2_blend.csv candidate_02_blend.csv candidate_03_lightgbm.csv candidate_04_catboost_d6.csv candidate_05_broad_blend.csv candidate_06_extra_trees.csv candidate_07_logistic.csv\nDONE elapsed_seconds=116.2\n"
+  },
+  {
+    "dataset": "train_13",
+    "elapsed_seconds": 26.7,
+    "scores": [
+      {
+        "file": "candidate_01_catboost_d6.csv",
+        "cv_auc": 0.6793999999999999,
+        "test_auc": 0.6487832551330206,
+        "test_private": 0.6555711822847291,
+        "test_public": 0.6420974483897935
+      },
+      {
+        "file": "candidate_02_blend.csv",
+        "cv_auc": 0.679152,
+        "test_auc": 0.6478470113880457,
+        "test_private": 0.6546798187192749,
+        "test_public": 0.6411793647174588
+      },
+      {
+        "file": "candidate_03_top2_blend.csv",
+        "cv_auc": 0.671592,
+        "test_auc": 0.645315781263125,
+        "test_private": 0.6520942883771534,
+        "test_public": 0.6385858343433374
+      },
+      {
+        "file": "candidate_04_broad_blend.csv",
+        "cv_auc": 0.66164,
+        "test_auc": 0.6423956695826782,
+        "test_private": 0.648248112992452,
+        "test_public": 0.636436545746183
+      },
+      {
+        "file": "candidate_05_logistic.csv",
+        "cv_auc": 0.641824,
+        "test_auc": 0.6332812931251726,
+        "test_private": 0.6393313573254293,
+        "test_public": 0.6272220288881156
+      },
+      {
+        "file": "candidate_06_lightgbm.csv",
+        "cv_auc": 0.613696,
+        "test_auc": 0.6240356161424645,
+        "test_private": 0.6284004336017344,
+        "test_public": 0.6197231188924756
+      },
+      {
+        "file": "candidate_07_extra_trees.csv",
+        "cv_auc": 0.56432,
+        "test_auc": 0.5643668574674299,
+        "test_private": 0.5703444413777655,
+        "test_public": 0.558438473753895
+      }
+    ],
+    "stdout": "{\"categorical\": 6, \"features\": 9, \"folds\": 3, \"models\": [\"extra_trees\", \"logistic\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 5, \"rows\": 500, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.564320 folds=0.55106,0.58427,0.56249\nMODEL logistic cv_auc=0.641824 folds=0.67025,0.64673,0.61257\nMODEL catboost_d6 cv_auc=0.679400 folds=0.73824,0.69707,0.63558\nMODEL lightgbm cv_auc=0.613696 folds=0.62794,0.59911,0.61199\nCANDIDATES candidate_01_catboost_d6.csv candidate_02_blend.csv candidate_03_top2_blend.csv candidate_04_broad_blend.csv candidate_05_logistic.csv candidate_06_lightgbm.csv candidate_07_extra_trees.csv\nDONE elapsed_seconds=26.7\n"
+  }
+]
