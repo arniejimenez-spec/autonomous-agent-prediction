@@ -48,14 +48,14 @@ def main():
     parser.add_argument("--experiment", default="01_robust_automl")
     parser.add_argument("--output")
     args = parser.parse_args()
+    output = Path(args.output or f"submissions/{args.experiment}/meta_results.json")
     results = []
     for dataset in args.datasets:
         result = evaluate(dataset, args.fast, args.experiment)
         results.append(result)
+        output.write_text(json.dumps(results, indent=2), encoding="utf-8")
         best = max(result["scores"], key=lambda x: x["test_auc"])
         print(dataset, f"best_test_auc={best['test_auc']:.6f}", best["file"], flush=True)
-    output = args.output or f"submissions/{args.experiment}/meta_results.json"
-    Path(output).write_text(json.dumps(results, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,9 @@ This repository contains a competition-ready Agent Config for Kaggle's Autonomou
 
 ## What is included
 
+- `submissions/04_adaptive_automl_v3/agent/` — adaptive v3 with small-data CatBoost variants and baseline-preserving blends
+- `notebooks/build_agent_submission_v3.ipynb` — self-contained adaptive v3 Kaggle notebook
+
 - `submissions/01_robust_automl/agent/` — uploadable Agent Config source
 - `submissions/02_order_aware_automl/agent/` — controlled order-aware v2 Agent Config
 - `submissions/03_fail_safe_automl/agent/` — corrected v2.1 with guaranteed baseline submission and persistent-workdir handling
@@ -23,7 +26,8 @@ The organizer-supplied `sample_submission/` is intentionally unchanged.
 
 - **v1** scored **0.781 AUC** in the black-box competition evaluation.
 - **v2** preserves explicit ordinal ordering alongside categorical representations and adds a top-two rank blend. Across the 16 solved tasks it improves mean best-candidate AUC from 0.80209 to 0.80241 and simulated public-selected private AUC from 0.80285 to 0.80320.
-- **v2.1** fixes ADK skill execution from a temporary directory, makes a valid baseline submission before modeling, names exact skill-tool calls, and upgrades the orchestration model for reliable tool use. Use v2.1 for the next submission.
+- **v2.1** scored **0.814 AUC** after fixing ADK skill execution from a temporary directory, making a valid baseline submission before modeling, naming exact skill-tool calls, and upgrading the orchestration model for reliable tool use.
+- **v3** adds shallow and ordered CatBoost models only on small datasets, a weighted top-two blend on larger datasets, and explicit v2.1 ensemble fallbacks. Across all 16 solved tasks it records 7 wins, 9 ties, and 0 losses versus v2.1; mean best-candidate AUC rises from 0.802412 to 0.803754 and simulated public-selected private AUC rises from 0.803195 to 0.804658. Use v3 for the next submission.
 
 ## Architecture
 
@@ -34,9 +38,9 @@ The LLM is a low-cost orchestration layer. Expensive and error-prone modeling wo
 3. generate leakage-safe out-of-fold predictions;
 4. create greedy and broad rank blends;
 5. write ranked candidate CSV files and a machine-readable manifest;
-6. submit at most six candidates and select two robust, distinct finalists.
+6. submit a capped set of ranked candidates and select two robust, distinct finalists.
 
-This structure spends LLM tokens on orchestration instead of generating ad hoc training code. `gemini-3.1-flash-lite` was chosen because the official $2 session budget rewards a concise, deterministic workflow.
+This structure spends LLM tokens on orchestration instead of generating ad hoc training code. The current fail-safe agents use `gemini-3.5-flash` for reliable skill calls within the official session budget.
 
 ## Local setup
 
@@ -57,6 +61,7 @@ For full agent evaluation, copy `.env.example` to `.env`, add the API key for th
 .\.venv\Scripts\python.exe validate_submission.py --agent-dir submissions/01_robust_automl/agent
 .\.venv\Scripts\python.exe scripts/package_submission.py
 .\.venv\Scripts\python.exe scripts/package_submission.py --experiment 02_order_aware_automl
+.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 04_adaptive_automl_v3
 ```
 
 The ZIP must contain `agent.yaml` at its root. Never zip the parent `agent/` directory itself.
@@ -90,6 +95,7 @@ Regenerate the notebook after changing any agent file:
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py
 .\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 02_order_aware_automl --output notebooks/build_agent_submission_v2.ipynb
+.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 04_adaptive_automl_v3 --output notebooks/build_agent_submission_v3.ipynb
 ```
 
 ## Official local agent evaluation

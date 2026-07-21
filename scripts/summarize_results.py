@@ -13,8 +13,22 @@ def main() -> None:
     args = parser.parse_args()
     experiment = ROOT / "submissions" / args.experiment
     records = []
-    for name in ("meta_results_smoke.json", "meta_results_remaining.json"):
-        records.extend(json.loads((experiment / name).read_text(encoding="utf-8")))
+    shards = sorted(experiment.glob("result_*.json"))
+    if not shards:
+        legacy_shards = [
+            experiment / "meta_results_smoke.json",
+            experiment / "meta_results_remaining.json",
+        ]
+        shards = [path for path in legacy_shards if path.is_file()]
+    if not shards and (experiment / "meta_results_all.json").is_file():
+        shards = [experiment / "meta_results_all.json"]
+    if not shards:
+        raise FileNotFoundError(f"No result shards found in {experiment}")
+    by_dataset = {}
+    for shard in shards:
+        for record in json.loads(shard.read_text(encoding="utf-8")):
+            by_dataset[record["dataset"]] = record
+    records = list(by_dataset.values())
     records.sort(key=lambda item: item["dataset"])
     (experiment / "meta_results_all.json").write_text(json.dumps(records, indent=2), encoding="utf-8")
     best_test_values, selected_private_values = [], []
