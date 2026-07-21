@@ -6,9 +6,11 @@ This repository contains a competition-ready Agent Config for Kaggle's Autonomou
 
 - `submissions/01_robust_automl/agent/` — uploadable Agent Config source
 - `submissions/02_order_aware_automl/agent/` — controlled order-aware v2 Agent Config
+- `submissions/03_fail_safe_automl/agent/` — corrected v2.1 with guaranteed baseline submission and persistent-workdir handling
 - `submissions/01_robust_automl/submission.zip` — locally generated Kaggle artifact (excluded from Git; rebuilt by the notebook or CI)
 - `notebooks/build_agent_submission.ipynb` — self-contained Kaggle notebook that rebuilds the ZIP
 - `notebooks/build_agent_submission_v2.ipynb` — self-contained v2 Kaggle notebook
+- `notebooks/build_agent_submission_v21.ipynb` — self-contained corrected v2.1 Kaggle notebook
 - `scripts/meta_evaluate.py` — evaluates the deterministic ML skill on the 16 solved tasks
 - `scripts/build_notebook.py` — regenerates the self-contained notebook from the agent directory
 - `scripts/package_submission.py` — cross-platform Agent Config packager
@@ -21,6 +23,7 @@ The organizer-supplied `sample_submission/` is intentionally unchanged.
 
 - **v1** scored **0.781 AUC** in the black-box competition evaluation.
 - **v2** preserves explicit ordinal ordering alongside categorical representations and adds a top-two rank blend. Across the 16 solved tasks it improves mean best-candidate AUC from 0.80209 to 0.80241 and simulated public-selected private AUC from 0.80285 to 0.80320.
+- **v2.1** fixes ADK skill execution from a temporary directory, makes a valid baseline submission before modeling, names exact skill-tool calls, and upgrades the orchestration model for reliable tool use. Use v2.1 for the next submission.
 
 ## Architecture
 

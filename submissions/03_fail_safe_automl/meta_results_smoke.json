@@ -1,0 +1,58 @@
+[
+  {
+    "dataset": "train_13",
+    "elapsed_seconds": 71.2,
+    "scores": [
+      {
+        "file": "candidate_01_catboost_d6.csv",
+        "cv_auc": 0.6793999999999999,
+        "test_auc": 0.6487832551330206,
+        "test_private": 0.6555711822847291,
+        "test_public": 0.6420974483897935
+      },
+      {
+        "file": "candidate_02_blend.csv",
+        "cv_auc": 0.679152,
+        "test_auc": 0.6478470113880457,
+        "test_private": 0.6546798187192749,
+        "test_public": 0.6411793647174588
+      },
+      {
+        "file": "candidate_03_top2_blend.csv",
+        "cv_auc": 0.671592,
+        "test_auc": 0.645315781263125,
+        "test_private": 0.6520942883771534,
+        "test_public": 0.6385858343433374
+      },
+      {
+        "file": "candidate_04_broad_blend.csv",
+        "cv_auc": 0.66164,
+        "test_auc": 0.6423956695826782,
+        "test_private": 0.648248112992452,
+        "test_public": 0.636436545746183
+      },
+      {
+        "file": "candidate_05_logistic.csv",
+        "cv_auc": 0.641824,
+        "test_auc": 0.6332812931251726,
+        "test_private": 0.6393313573254293,
+        "test_public": 0.6272220288881156
+      },
+      {
+        "file": "candidate_06_lightgbm.csv",
+        "cv_auc": 0.613696,
+        "test_auc": 0.6240356161424645,
+        "test_private": 0.6284004336017344,
+        "test_public": 0.6197231188924756
+      },
+      {
+        "file": "candidate_07_extra_trees.csv",
+        "cv_auc": 0.56432,
+        "test_auc": 0.5643668574674299,
+        "test_private": 0.5703444413777655,
+        "test_public": 0.558438473753895
+      }
+    ],
+    "stdout": "WORKDIR C:\\Users\\arnie\\OneDrive\\Documents\\Claude\\Projects\\Autonomous Agent\\submissions\\03_fail_safe_automl\\train_13_k1qg7vgs\n{\"categorical\": 6, \"features\": 9, \"folds\": 3, \"models\": [\"extra_trees\", \"logistic\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 5, \"rows\": 500, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.564320 folds=0.55106,0.58427,0.56249\nMODEL logistic cv_auc=0.641824 folds=0.67025,0.64673,0.61257\nMODEL catboost_d6 cv_auc=0.679400 folds=0.73824,0.69707,0.63558\nMODEL lightgbm cv_auc=0.613696 folds=0.62794,0.59911,0.61199\nCANDIDATES candidate_01_catboost_d6.csv candidate_02_blend.csv candidate_03_top2_blend.csv candidate_04_broad_blend.csv candidate_05_logistic.csv candidate_06_lightgbm.csv candidate_07_extra_trees.csv\nDONE elapsed_seconds=71.2\n"
+  }
+]

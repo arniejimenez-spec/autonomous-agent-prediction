@@ -21,19 +21,23 @@ jobs:
         run: |
           .venv/bin/python validate_submission.py --agent-dir submissions/01_robust_automl/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/02_order_aware_automl/agent
+          .venv/bin/python validate_submission.py --agent-dir submissions/03_fail_safe_automl/agent
       - name: Check Python syntax
-        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent
+        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent
         env:
           PYTHONPYCACHEPREFIX: /tmp/autonomous-agent-pycache
       - name: Build artifacts
         run: |
           .venv/bin/python scripts/build_notebook.py
           .venv/bin/python scripts/build_notebook.py --experiment 02_order_aware_automl --output notebooks/build_agent_submission_v2.ipynb
+          .venv/bin/python scripts/build_notebook.py --experiment 03_fail_safe_automl --output notebooks/build_agent_submission_v21.ipynb
           .venv/bin/python scripts/package_submission.py
           .venv/bin/python scripts/package_submission.py --experiment 02_order_aware_automl
+          .venv/bin/python scripts/package_submission.py --experiment 03_fail_safe_automl
       - uses: actions/upload-artifact@v4
         with:
           name: kaggle-agent-submission
           path: |
             submissions/01_robust_automl/submission.zip
             submissions/02_order_aware_automl/submission.zip
+            submissions/03_fail_safe_automl/submission.zip
