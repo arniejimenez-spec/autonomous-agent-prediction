@@ -23,8 +23,9 @@ jobs:
           .venv/bin/python validate_submission.py --agent-dir submissions/02_order_aware_automl/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/03_fail_safe_automl/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/04_adaptive_automl_v3/agent
+          .venv/bin/python validate_submission.py --agent-dir submissions/05_selection_stable_automl_v4/agent
       - name: Check Python syntax
-        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent
+        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent
         env:
           PYTHONPYCACHEPREFIX: /tmp/autonomous-agent-pycache
       - name: Build artifacts
@@ -34,10 +35,13 @@ jobs:
           .venv/bin/python scripts/build_notebook.py --experiment 03_fail_safe_automl --output notebooks/build_agent_submission_v21.ipynb
           .venv/bin/python scripts/build_notebook.py --experiment 04_adaptive_automl_v3 --output notebooks/build_agent_submission_v3.ipynb
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v3.ipynb
+          .venv/bin/python scripts/build_notebook.py --experiment 05_selection_stable_automl_v4 --output notebooks/build_agent_submission_v4.ipynb
+          .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v4.ipynb
           .venv/bin/python scripts/package_submission.py
           .venv/bin/python scripts/package_submission.py --experiment 02_order_aware_automl
           .venv/bin/python scripts/package_submission.py --experiment 03_fail_safe_automl
           .venv/bin/python scripts/package_submission.py --experiment 04_adaptive_automl_v3
+          .venv/bin/python scripts/package_submission.py --experiment 05_selection_stable_automl_v4
       - uses: actions/upload-artifact@v4
         with:
           name: kaggle-agent-submission
@@ -46,3 +50,4 @@ jobs:
             submissions/02_order_aware_automl/submission.zip
             submissions/03_fail_safe_automl/submission.zip
             submissions/04_adaptive_automl_v3/submission.zip
+            submissions/05_selection_stable_automl_v4/submission.zip
