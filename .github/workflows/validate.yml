@@ -25,8 +25,9 @@ jobs:
           .venv/bin/python validate_submission.py --agent-dir submissions/04_adaptive_automl_v3/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/05_selection_stable_automl_v4/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/06_interaction_routed_automl_v5/agent
+          .venv/bin/python validate_submission.py --agent-dir submissions/07_tree_diversity_automl_v6/agent
       - name: Check Python syntax
-        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent submissions/06_interaction_routed_automl_v5/agent
+        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent submissions/06_interaction_routed_automl_v5/agent submissions/07_tree_diversity_automl_v6/agent
         env:
           PYTHONPYCACHEPREFIX: /tmp/autonomous-agent-pycache
       - name: Build artifacts
@@ -40,12 +41,15 @@ jobs:
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v4.ipynb
           .venv/bin/python scripts/build_notebook.py --experiment 06_interaction_routed_automl_v5 --output notebooks/build_agent_submission_v5.ipynb
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v5.ipynb
+          .venv/bin/python scripts/build_notebook.py --experiment 07_tree_diversity_automl_v6 --output notebooks/build_agent_submission_v6.ipynb
+          .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v6.ipynb
           .venv/bin/python scripts/package_submission.py
           .venv/bin/python scripts/package_submission.py --experiment 02_order_aware_automl
           .venv/bin/python scripts/package_submission.py --experiment 03_fail_safe_automl
           .venv/bin/python scripts/package_submission.py --experiment 04_adaptive_automl_v3
           .venv/bin/python scripts/package_submission.py --experiment 05_selection_stable_automl_v4
           .venv/bin/python scripts/package_submission.py --experiment 06_interaction_routed_automl_v5
+          .venv/bin/python scripts/package_submission.py --experiment 07_tree_diversity_automl_v6
       - uses: actions/upload-artifact@v4
         with:
           name: kaggle-agent-submission
@@ -56,3 +60,4 @@ jobs:
             submissions/04_adaptive_automl_v3/submission.zip
             submissions/05_selection_stable_automl_v4/submission.zip
             submissions/06_interaction_routed_automl_v5/submission.zip
+            submissions/07_tree_diversity_automl_v6/submission.zip
