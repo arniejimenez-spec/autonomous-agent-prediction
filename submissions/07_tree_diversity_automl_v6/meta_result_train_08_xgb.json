@@ -1,0 +1,86 @@
+[
+  {
+    "dataset": "train_08",
+    "elapsed_seconds": 305.6,
+    "scores": [
+      {
+        "file": "candidate_01_top2_blend.csv",
+        "cv_auc": 0.8553379534171701,
+        "test_auc": 0.8527963029149974,
+        "test_private": 0.8504296904707582,
+        "test_public": 0.8553205440917379
+      },
+      {
+        "file": "candidate_02_blend.csv",
+        "cv_auc": 0.8552921515849531,
+        "test_auc": 0.8523318822036985,
+        "test_private": 0.8502877545220568,
+        "test_public": 0.854533500297052
+      },
+      {
+        "file": "candidate_03_broad_blend.csv",
+        "cv_auc": 0.8551823050717157,
+        "test_auc": 0.8523279203208534,
+        "test_private": 0.8503455535942298,
+        "test_public": 0.8544844451017147
+      },
+      {
+        "file": "candidate_04_v5_blend.csv",
+        "cv_auc": 0.8551184101677791,
+        "test_auc": 0.8524738696818277,
+        "test_private": 0.8502089812713395,
+        "test_public": 0.8549141782158441
+      },
+      {
+        "file": "candidate_05_catboost_d6.csv",
+        "cv_auc": 0.8542518898273321,
+        "test_auc": 0.8517767783961648,
+        "test_private": 0.849602891554691,
+        "test_public": 0.8541223329338495
+      },
+      {
+        "file": "candidate_06_logistic.csv",
+        "cv_auc": 0.8540011929445168,
+        "test_auc": 0.8521554383505218,
+        "test_private": 0.8497140066685078,
+        "test_public": 0.8547212384508225
+      },
+      {
+        "file": "candidate_07_v5_broad_blend.csv",
+        "cv_auc": 0.8531902399021489,
+        "test_auc": 0.8513052342995485,
+        "test_private": 0.8492019805388442,
+        "test_public": 0.8536349019472272
+      },
+      {
+        "file": "candidate_08_xgboost.csv",
+        "cv_auc": 0.8522142624688824,
+        "test_auc": 0.849491852507986,
+        "test_private": 0.8481900965052376,
+        "test_public": 0.8509655150779507
+      },
+      {
+        "file": "candidate_09_lightgbm.csv",
+        "cv_auc": 0.8405324587310214,
+        "test_auc": 0.8427596931165566,
+        "test_private": 0.8412999987991884,
+        "test_public": 0.8443469849220494
+      },
+      {
+        "file": "candidate_10_random_forest.csv",
+        "cv_auc": 0.832035065571209,
+        "test_auc": 0.8368310756003684,
+        "test_private": 0.8365073189476087,
+        "test_public": 0.8371706819904532
+      },
+      {
+        "file": "candidate_11_extra_trees.csv",
+        "cv_auc": 0.8284697119582982,
+        "test_auc": 0.8295085956650039,
+        "test_private": 0.8272099939559142,
+        "test_public": 0.8318535149447892
+      }
+    ],
+    "stdout": "WORKDIR C:\\Users\\arnie\\OneDrive\\Documents\\Claude\\Projects\\Autonomous Agent\\submissions\\07_tree_diversity_automl_v6\\train_08_lkyzwewb\n{\"categorical\": 12, \"features\": 12, \"folds\": 3, \"models\": [\"extra_trees\", \"random_forest\", \"logistic\", \"xgboost\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 0, \"rows\": 8173, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.828470 folds=0.82965,0.84061,0.81583\nMODEL random_forest cv_auc=0.832035 folds=0.82968,0.84527,0.82172\nMODEL logistic cv_auc=0.854001 folds=0.85116,0.87022,0.84189\nMODEL xgboost cv_auc=0.852214 folds=0.84914,0.86831,0.84052\nMODEL catboost_d6 cv_auc=0.854252 folds=0.85075,0.86903,0.84473\nMODEL lightgbm cv_auc=0.840532 folds=0.83589,0.85780,0.82894\nCANDIDATES candidate_01_top2_blend.csv candidate_02_blend.csv candidate_03_broad_blend.csv candidate_04_v5_blend.csv candidate_05_catboost_d6.csv candidate_06_logistic.csv candidate_07_v5_broad_blend.csv candidate_08_xgboost.csv candidate_09_lightgbm.csv candidate_10_random_forest.csv candidate_11_extra_trees.csv\nDONE elapsed_seconds=305.6\n"
+  }
+]
