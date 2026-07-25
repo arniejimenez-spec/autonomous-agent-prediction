@@ -12,6 +12,8 @@ This repository contains a competition-ready Agent Config for Kaggle's Autonomou
 - `notebooks/build_agent_submission_v5.ipynb` — self-contained interaction-routed v5 Kaggle notebook
 - `submissions/07_tree_diversity_automl_v6/agent/` — v6 with separately routed XGBoost and Random Forest diversity
 - `notebooks/build_agent_submission_v6.ipynb` — self-contained tree-diversity v6 Kaggle notebook
+- `submissions/08_fingerprint_routed_automl_v7/agent/` — v7 with fingerprint-routed specialists and a deterministic baseline hedge
+- `notebooks/build_agent_submission_v7.ipynb` — self-contained fingerprint-routed v7 Kaggle notebook
 
 - `submissions/01_robust_automl/agent/` — uploadable Agent Config source
 - `submissions/02_order_aware_automl/agent/` — controlled order-aware v2 Agent Config
@@ -36,7 +38,8 @@ The organizer-supplied `sample_submission/` is intentionally unchanged.
 - **v3** scored **0.822 AUC**. It adds shallow and ordered CatBoost models on small datasets, a weighted top-two blend on larger datasets, and explicit v2.1 ensemble fallbacks.
 - **v4** scored **0.822 AUC**, matching v3. It aligns final selection with the evaluator's best-private-of-two rule and adds two-seed CatBoost averaging only for small all-numeric datasets.
 - **v5** scored **0.822 AUC**, matching v3 and v4. It adds a regularized quadratic interaction model only on numeric-dominant datasets and explicitly preserves the complete v4 ensemble family.
-- **v6** separately routes Random Forest to 1,000–12,000-row tasks and one-hot XGBoost to 4,000–15,000-row tasks with at least five categorical views. It explicitly preserves the complete v5 family. Across the composed 16-task replay, mean best-candidate AUC rises from 0.804320 to 0.804391 and simulated top-two-public private AUC rises from 0.805363 to 0.805450, with no selected-pair regression on any confirmed route. Use v6 for the next submission.
+- **v6** scored **0.822 AUC**, extending the v3–v5 plateau. It separately routes Random Forest to 1,000–12,000-row tasks and one-hot XGBoost to 4,000–15,000-row tasks with at least five categorical views. Its composed 16-task selected-private replay reaches 0.805450.
+- **v7** fingerprints dataset size and feature geometry, extends shallow/ordered CatBoost only to medium categorical tasks, and routes cross-fitted target encoding only to tiny datasets with at least ten categorical views. A train-only pilot-CV rule chooses an exact v5/v6 hedge while the other slot explores the public frontier. The 16-task replay improves selected-private AUC from 0.805450 to 0.805604 with no routed regression. Normal-mode train_15 improves from 0.866506 for the safe baseline to 0.868734. Use v7 for the next submission.
 
 ## Architecture
 
@@ -74,6 +77,7 @@ For full agent evaluation, copy `.env.example` to `.env`, add the API key for th
 .\.venv\Scripts\python.exe scripts/package_submission.py --experiment 05_selection_stable_automl_v4
 .\.venv\Scripts\python.exe scripts/package_submission.py --experiment 06_interaction_routed_automl_v5
 .\.venv\Scripts\python.exe scripts/package_submission.py --experiment 07_tree_diversity_automl_v6
+.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 08_fingerprint_routed_automl_v7
 ```
 
 The ZIP must contain `agent.yaml` at its root. Never zip the parent `agent/` directory itself.
@@ -111,6 +115,7 @@ Regenerate the notebook after changing any agent file:
 .\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 05_selection_stable_automl_v4 --output notebooks/build_agent_submission_v4.ipynb
 .\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 06_interaction_routed_automl_v5 --output notebooks/build_agent_submission_v5.ipynb
 .\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 07_tree_diversity_automl_v6 --output notebooks/build_agent_submission_v6.ipynb
+.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 08_fingerprint_routed_automl_v7 --output notebooks/build_agent_submission_v7.ipynb
 ```
 
 ## Official local agent evaluation

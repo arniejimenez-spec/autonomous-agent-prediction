@@ -1,0 +1,8 @@
+{
+  "train_01": "candidate_05_v5safe_v4_weighted_top2_0.65.csv",
+  "train_06": "candidate_02_v6_weighted_top2_0.65.csv",
+  "train_07": "candidate_01_broad_blend.csv",
+  "train_08": "candidate_03_v21_top2_blend.csv",
+  "train_14": "candidate_09_v5safe_v4_weighted_top2_0.80.csv",
+  "train_15": "candidate_05_v5safe_v6safe_v4_blend.csv"
+}
