@@ -1,62 +1,59 @@
-# Autonomous Agent Prediction — Robust Tabular AutoML Agent
+# Autonomous Agent Prediction — Fingerprint-Routed Tabular Agent
 
-This repository contains a competition-ready Agent Config for Kaggle's Autonomous Agent Prediction beta competition. The agent solves an unseen binary tabular task inside a 60-minute CPU sandbox, uses public leaderboard feedback conservatively, and selects two final submissions.
+This repository contains an Agent Config for Kaggle's Autonomous Agent Prediction beta competition. During each evaluation session, the agent must solve two unseen binary-classification mini-competitions, submit candidate predictions through the competition tools, and select exactly two finalists.
 
-## What is included
+## Current status
 
-- `submissions/04_adaptive_automl_v3/agent/` — adaptive v3 with small-data CatBoost variants and baseline-preserving blends
-- `notebooks/build_agent_submission_v3.ipynb` — self-contained adaptive v3 Kaggle notebook
-- `submissions/05_selection_stable_automl_v4/agent/` — selection-stable v4 with routed numeric seed averaging
-- `notebooks/build_agent_submission_v4.ipynb` — self-contained selection-stable v4 Kaggle notebook
-- `submissions/06_interaction_routed_automl_v5/agent/` — interaction-routed v5 with quadratic numeric features
-- `notebooks/build_agent_submission_v5.ipynb` — self-contained interaction-routed v5 Kaggle notebook
-- `submissions/07_tree_diversity_automl_v6/agent/` — v6 with separately routed XGBoost and Random Forest diversity
-- `notebooks/build_agent_submission_v6.ipynb` — self-contained tree-diversity v6 Kaggle notebook
-- `submissions/08_fingerprint_routed_automl_v7/agent/` — v7 with fingerprint-routed specialists and a deterministic baseline hedge
-- `notebooks/build_agent_submission_v7.ipynb` — self-contained fingerprint-routed v7 Kaggle notebook
+| Item | Status |
+|---|---|
+| Best official Kaggle score | **0.822 AUC** |
+| Versions at the official best | v3, v4, v5, and v6 |
+| Current candidate | **v7 — validated locally, official score pending** |
+| Agent source | [`submissions/08_fingerprint_routed_automl_v7/agent/`](submissions/08_fingerprint_routed_automl_v7/agent/) |
+| Kaggle build notebook | [`notebooks/build_agent_submission_v7.ipynb`](notebooks/build_agent_submission_v7.ipynb) |
+| Design notes | [`docs/V7.md`](docs/V7.md) |
 
-- `submissions/01_robust_automl/agent/` — uploadable Agent Config source
-- `submissions/02_order_aware_automl/agent/` — controlled order-aware v2 Agent Config
-- `submissions/03_fail_safe_automl/agent/` — corrected v2.1 with guaranteed baseline submission and persistent-workdir handling
-- `submissions/01_robust_automl/submission.zip` — locally generated Kaggle artifact (excluded from Git; rebuilt by the notebook or CI)
-- `notebooks/build_agent_submission.ipynb` — self-contained Kaggle notebook that rebuilds the ZIP
-- `notebooks/build_agent_submission_v2.ipynb` — self-contained v2 Kaggle notebook
-- `notebooks/build_agent_submission_v21.ipynb` — self-contained corrected v2.1 Kaggle notebook
-- `scripts/meta_evaluate.py` — evaluates the deterministic ML skill on the 16 solved tasks
-- `scripts/build_notebook.py` — regenerates the self-contained notebook from the agent directory
-- `scripts/package_submission.py` — cross-platform Agent Config packager
-- `scripts/package_submission.ps1` — packages the Agent Config on Windows
-- `kaggle-kaggle-skill/` — organizer-supplied competition documentation
+The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v6 added useful local safeguards and model diversity but did not move the black-box score beyond 0.822. V7 is the next submission candidate; it should not be described as an official improvement until Kaggle returns a score.
 
-The organizer-supplied `sample_submission/` is intentionally unchanged.
+## Score history
 
-## Current versions
+| Version | Official score | What changed |
+|---|---:|---|
+| v1 | 0.781 | Initial robust tabular AutoML agent |
+| v2 | Invalid run | Agent completed without calling `submit_predictions` |
+| v2.1 | 0.814 | Guaranteed an early valid submission and fixed skill execution from the persistent work directory |
+| v3 | **0.822** | Added small-data CatBoost specialists, weighted blends, and explicit safe fallbacks |
+| v4 | **0.822** | Aligned final selection with the best-private-of-two evaluation and routed numeric seed averaging |
+| v5 | **0.822** | Added regularized quadratic interactions for numeric-dominant datasets |
+| v6 | **0.822** | Added carefully routed XGBoost and Random Forest diversity |
+| v7 | Pending | Adds dataset fingerprinting, routed specialists, and a deterministic baseline hedge |
 
-- **v1** scored **0.781 AUC** in the black-box competition evaluation.
-- **v2** preserves explicit ordinal ordering alongside categorical representations and adds a top-two rank blend. Across the 16 solved tasks it improves mean best-candidate AUC from 0.80209 to 0.80241 and simulated public-selected private AUC from 0.80285 to 0.80320.
-- **v2.1** scored **0.814 AUC** after fixing ADK skill execution from a temporary directory, making a valid baseline submission before modeling, naming exact skill-tool calls, and upgrading the orchestration model for reliable tool use.
-- **v3** scored **0.822 AUC**. It adds shallow and ordered CatBoost models on small datasets, a weighted top-two blend on larger datasets, and explicit v2.1 ensemble fallbacks.
-- **v4** scored **0.822 AUC**, matching v3. It aligns final selection with the evaluator's best-private-of-two rule and adds two-seed CatBoost averaging only for small all-numeric datasets.
-- **v5** scored **0.822 AUC**, matching v3 and v4. It adds a regularized quadratic interaction model only on numeric-dominant datasets and explicitly preserves the complete v4 ensemble family.
-- **v6** scored **0.822 AUC**, extending the v3–v5 plateau. It separately routes Random Forest to 1,000–12,000-row tasks and one-hot XGBoost to 4,000–15,000-row tasks with at least five categorical views. Its composed 16-task selected-private replay reaches 0.805450.
-- **v7** fingerprints dataset size and feature geometry, extends shallow/ordered CatBoost only to medium categorical tasks, and routes cross-fitted target encoding only to tiny datasets with at least ten categorical views. A train-only pilot-CV rule chooses an exact v5/v6 hedge while the other slot explores the public frontier. The 16-task replay improves selected-private AUC from 0.805450 to 0.805604 with no routed regression. Normal-mode train_15 improves from 0.866506 for the safe baseline to 0.868734. Use v7 for the next submission.
+The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V7 raises selected-private replay AUC from **0.805450** for v6 to **0.805604**, with no regression on the tasks where its new routes activate. On the normal-mode `train_15` check, the selected v7 pair scores **0.868734** versus **0.866506** for the safe baseline.
 
-## Architecture
+## V7 strategy
 
-The LLM is a low-cost orchestration layer. Expensive and error-prone modeling work lives in a pre-tested sandbox skill:
+The LLM acts as a lightweight orchestrator while a deterministic, pre-tested skill performs the modeling:
 
-1. infer the target, ID, feature types, and binary label mapping;
-2. run stratified cross-validation across CatBoost, LightGBM, ExtraTrees, and regularized logistic regression;
-3. generate leakage-safe out-of-fold predictions;
-4. create greedy and broad rank blends;
-5. write ranked candidate CSV files and a machine-readable manifest;
-6. submit a capped set of ranked candidates and select two robust, distinct finalists.
+1. immediately submit the sample prediction as a fail-safe;
+2. infer the target, ID, binary-label mapping, feature types, and dataset fingerprint;
+3. route the dataset to a bounded portfolio of CatBoost, LightGBM, ExtraTrees, logistic regression, Random Forest, XGBoost, and specialized feature pipelines;
+4. produce leakage-safe out-of-fold predictions and rank-based blends;
+5. keep one train-only-selected safe hedge while the other slot explores the strongest distinct public-frontier candidate;
+6. call `select_submissions` with exactly two valid predictions.
 
-This structure spends LLM tokens on orchestration instead of generating ad hoc training code. The current fail-safe agents use `gemini-3.5-flash` for reliable skill calls within the official session budget.
+Specialists are activated conservatively:
 
-## Local setup
+- shallow and ordered CatBoost variants for small-to-medium categorical tasks;
+- cross-fitted target encoding only for tiny datasets with many categorical views;
+- Random Forest for selected medium-sized tasks;
+- one-hot XGBoost for sufficiently large, categorical datasets;
+- quadratic interactions only for numeric-dominant geometry.
 
-Python 3.13 is recommended because the current evaluator dependency chain does not build cleanly on Python 3.14.
+The agent uses deterministic seeds, caps the number of candidates below the competition limit, avoids network access and runtime installation, and falls back cleanly when optional boosting libraries are unavailable.
+
+## Build the current submission
+
+Python 3.13 is recommended because the evaluator dependency chain does not currently build cleanly on Python 3.14.
 
 ```powershell
 uv python install 3.13
@@ -65,85 +62,108 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 uv pip install --python .venv\Scripts\python.exe catboost lightgbm xgboost
 ```
 
-For full agent evaluation, copy `.env.example` to `.env`, add the API key for the configured model, and install Docker or Podman. Static validation and deterministic meta-evaluation do not require an API key.
-
-## Validate and package
+Validate and package v7:
 
 ```powershell
-.\.venv\Scripts\python.exe validate_submission.py --agent-dir submissions/01_robust_automl/agent
-.\.venv\Scripts\python.exe scripts/package_submission.py
-.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 02_order_aware_automl
-.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 04_adaptive_automl_v3
-.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 05_selection_stable_automl_v4
-.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 06_interaction_routed_automl_v5
-.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 07_tree_diversity_automl_v6
-.\.venv\Scripts\python.exe scripts/package_submission.py --experiment 08_fingerprint_routed_automl_v7
+.\.venv\Scripts\python.exe validate_submission.py `
+  --agent-dir submissions/08_fingerprint_routed_automl_v7/agent
+
+.\.venv\Scripts\python.exe scripts/package_submission.py `
+  --experiment 08_fingerprint_routed_automl_v7
 ```
 
-The ZIP must contain `agent.yaml` at its root. Never zip the parent `agent/` directory itself.
+The generated file is:
 
-## Meta-validation
-
-Run a quick representative suite:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/meta_evaluate.py train_13 train_06 train_16 train_11 --fast
+```text
+submissions/08_fingerprint_routed_automl_v7/submission.zip
 ```
 
-Run all sixteen solved tasks:
+Its SHA-256 for the currently validated build is:
 
-```powershell
-.\.venv\Scripts\python.exe scripts/meta_evaluate.py --fast
+```text
+8EEA61B64A595A483CC54ADC633F4676106A0A3215B1BA17A1CC9A736337898D
 ```
 
-The evaluator reports full-test, inner-public, and inner-private AUC for every candidate. The supplied solutions are only used by the repository-level evaluation script; they are never bundled into the agent.
+The ZIP is intentionally excluded from Git and can be rebuilt by the notebook, locally, or in CI. It must contain `agent.yaml` at its root; do not zip the parent `agent/` directory.
 
-## Kaggle notebook
+## Build in a Kaggle notebook
 
-Upload `notebooks/build_agent_submission.ipynb` to Kaggle and run all cells. The notebook embeds the Agent Config source and writes:
+Upload and run [`notebooks/build_agent_submission_v7.ipynb`](notebooks/build_agent_submission_v7.ipynb). It is self-contained and writes:
 
 ```text
 /kaggle/working/submission.zip
 ```
 
-Regenerate the notebook after changing any agent file:
+Download that ZIP from the notebook output and upload it as the competition submission.
+
+After changing the agent source, regenerate the notebook with:
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/build_notebook.py
-.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 02_order_aware_automl --output notebooks/build_agent_submission_v2.ipynb
-.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 04_adaptive_automl_v3 --output notebooks/build_agent_submission_v3.ipynb
-.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 05_selection_stable_automl_v4 --output notebooks/build_agent_submission_v4.ipynb
-.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 06_interaction_routed_automl_v5 --output notebooks/build_agent_submission_v5.ipynb
-.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 07_tree_diversity_automl_v6 --output notebooks/build_agent_submission_v6.ipynb
-.\.venv\Scripts\python.exe scripts/build_notebook.py --experiment 08_fingerprint_routed_automl_v7 --output notebooks/build_agent_submission_v7.ipynb
+.\.venv\Scripts\python.exe scripts/build_notebook.py `
+  --experiment 08_fingerprint_routed_automl_v7 `
+  --output notebooks/build_agent_submission_v7.ipynb
 ```
 
-## Official local agent evaluation
+## Local evaluation
 
-After configuring `.env` and a container runtime:
+Quick deterministic meta-evaluation:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/meta_evaluate.py `
+  train_13 train_06 train_16 train_11 `
+  --fast `
+  --experiment 08_fingerprint_routed_automl_v7
+```
+
+Run all sixteen solved tasks:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/meta_evaluate.py `
+  --fast `
+  --experiment 08_fingerprint_routed_automl_v7
+```
+
+Replay the v7 routing and selection policy:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/replay_v7_policy.py `
+  submissions/08_fingerprint_routed_automl_v7/meta_results_all.json `
+  --hedges submissions/08_fingerprint_routed_automl_v7/policy_hedges.json
+```
+
+For full agent evaluation, copy `.env.example` to `.env`, configure the API key for the model in `agent.yaml`, and install Docker or Podman:
 
 ```powershell
 .\.venv\Scripts\python.exe run_local_eval.py `
-  --submission-dir submissions/01_robust_automl/agent `
+  --submission-dir submissions/08_fingerprint_routed_automl_v7/agent `
   --dataset train_01 `
   --metric roc_auc
 ```
 
-## Competition submission
+The supplied `solution.csv` files are used only by repository-level development scripts. They are never bundled into the Agent Config.
 
-Accept the competition rules on Kaggle first, then upload `submissions/01_robust_automl/submission.zip` through the competition UI or Kaggle CLI.
+## Repository map
 
-## Design safeguards
+```text
+submissions/
+  01_robust_automl/                 v1
+  02_order_aware_automl/            v2
+  03_fail_safe_automl/              v2.1
+  04_adaptive_automl_v3/            v3
+  05_selection_stable_automl_v4/    v4
+  06_interaction_routed_automl_v5/  v5
+  07_tree_diversity_automl_v6/      v6
+  08_fingerprint_routed_automl_v7/  current candidate
+notebooks/                           self-contained Kaggle builders
+scripts/                             packaging, evaluation, and replay tools
+docs/                                version-specific experiment notes
+kaggle-kaggle-skill/                 organizer documentation
+```
 
-- no symlinks or path traversal;
-- no network access or runtime package installation inside the competition sandbox;
-- no edits to the organizer's sample agent;
-- deterministic random seeds;
-- candidate cap below the 30-submission limit;
-- public scores used only for coarse selection;
-- exactly two final selections;
-- fallback mode when optional boosting libraries fail.
+Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), and [`docs/V7.md`](docs/V7.md).
+
+The organizer-supplied `sample_submission/` remains unchanged.
 
 ## License
 
-Code authored in this repository is released under the MIT License. The competition datasets and organizer starter materials retain their original CC BY 4.0 terms.
+Code authored in this repository is released under the MIT License. Competition datasets and organizer starter materials retain their original CC BY 4.0 terms.
