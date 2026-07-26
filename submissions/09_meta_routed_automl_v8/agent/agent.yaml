@@ -1,0 +1,12 @@
+name: meta_routed_automl_v8
+description: Fail-safe DGP-probing AutoML with group-held-out policy auditing and a generalist-specialist portfolio.
+model: gemini-3.5-flash
+instruction: !include prompts/system.md
+tools:
+  - run_command
+  - submit_predictions
+  - select_submission
+  - get_status
+skills:
+  - skills/tabular-automl
+generate_content_config: !include configs/sampling.yaml
