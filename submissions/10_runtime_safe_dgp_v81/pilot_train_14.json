@@ -1,0 +1,79 @@
+[
+  {
+    "dataset": "train_14",
+    "elapsed_seconds": 347.1,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "cv_auc": 0.8075497287522604,
+        "test_auc": 0.8070307641155932,
+        "test_private": 0.8105640706098771,
+        "test_public": 0.8035684571352502
+      },
+      {
+        "file": "p02.csv",
+        "cv_auc": 0.8074599774235776,
+        "test_auc": 0.8066484967148964,
+        "test_private": 0.8101903501882763,
+        "test_public": 0.8031935761755551
+      },
+      {
+        "file": "p03.csv",
+        "cv_auc": 0.8073308697239284,
+        "test_auc": 0.8064553729760209,
+        "test_private": 0.8101521860604444,
+        "test_public": 0.8028352552582535
+      },
+      {
+        "file": "p04.csv",
+        "cv_auc": 0.8072022158868768,
+        "test_auc": 0.8063123502071,
+        "test_private": 0.8103143636015673,
+        "test_public": 0.802387094110961
+      },
+      {
+        "file": "p05.csv",
+        "cv_auc": 0.8066381295155277,
+        "test_auc": 0.8063786514906929,
+        "test_private": 0.8094099457797357,
+        "test_public": 0.8034236567645613
+      },
+      {
+        "file": "p06.csv",
+        "cv_auc": 0.8065062824309142,
+        "test_auc": 0.8058308608854668,
+        "test_private": 0.8102113124555551,
+        "test_public": 0.8015547719802163
+      },
+      {
+        "file": "p07.csv",
+        "cv_auc": 0.8056647563373807,
+        "test_auc": 0.8056647776700956,
+        "test_private": 0.8102261940651501,
+        "test_public": 0.8011767710125337
+      },
+      {
+        "file": "p08.csv",
+        "cv_auc": 0.8054828222732421,
+        "test_auc": 0.806562395047968,
+        "test_private": 0.8110439625149857,
+        "test_public": 0.8021902936071517
+      },
+      {
+        "file": "p09.csv",
+        "cv_auc": 0.8053170813782122,
+        "test_auc": 0.8054445934073284,
+        "test_private": 0.80984007230222,
+        "test_public": 0.8011449309310231
+      },
+      {
+        "file": "p10.csv",
+        "cv_auc": 0.804964494977362,
+        "test_auc": 0.8059318828412518,
+        "test_private": 0.8105528693983541,
+        "test_public": 0.8014188516322602
+      }
+    ],
+    "stdout": "CV_HEDGE p01.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=347.1\n"
+  }
+]
