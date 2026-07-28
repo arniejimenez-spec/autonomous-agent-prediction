@@ -1,0 +1,12 @@
+name: runtime_safe_dgp_v81
+description: Runtime-safe DGP-probing AutoML with compact output, bounded submissions, and guaranteed final selection.
+model: gemini-3.5-flash
+instruction: !include prompts/system.md
+tools:
+  - run_command
+  - submit_predictions
+  - select_submission
+  - get_status
+skills:
+  - skills/tabular-automl
+generate_content_config: !include configs/sampling.yaml

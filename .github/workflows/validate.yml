@@ -28,8 +28,9 @@ jobs:
           .venv/bin/python validate_submission.py --agent-dir submissions/07_tree_diversity_automl_v6/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/08_fingerprint_routed_automl_v7/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/09_meta_routed_automl_v8/agent
+          .venv/bin/python validate_submission.py --agent-dir submissions/10_runtime_safe_dgp_v81/agent
       - name: Check Python syntax
-        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent submissions/06_interaction_routed_automl_v5/agent submissions/07_tree_diversity_automl_v6/agent submissions/08_fingerprint_routed_automl_v7/agent submissions/09_meta_routed_automl_v8/agent
+        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent submissions/06_interaction_routed_automl_v5/agent submissions/07_tree_diversity_automl_v6/agent submissions/08_fingerprint_routed_automl_v7/agent submissions/09_meta_routed_automl_v8/agent submissions/10_runtime_safe_dgp_v81/agent
         env:
           PYTHONPYCACHEPREFIX: /tmp/autonomous-agent-pycache
       - name: Build artifacts
@@ -49,6 +50,8 @@ jobs:
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v7.ipynb
           .venv/bin/python scripts/build_notebook.py --experiment 09_meta_routed_automl_v8 --output notebooks/build_agent_submission_v8.ipynb
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v8.ipynb
+          .venv/bin/python scripts/build_notebook.py --experiment 10_runtime_safe_dgp_v81 --output notebooks/build_agent_submission_v81.ipynb
+          .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v81.ipynb
           .venv/bin/python scripts/package_submission.py
           .venv/bin/python scripts/package_submission.py --experiment 02_order_aware_automl
           .venv/bin/python scripts/package_submission.py --experiment 03_fail_safe_automl
@@ -58,6 +61,7 @@ jobs:
           .venv/bin/python scripts/package_submission.py --experiment 07_tree_diversity_automl_v6
           .venv/bin/python scripts/package_submission.py --experiment 08_fingerprint_routed_automl_v7
           .venv/bin/python scripts/package_submission.py --experiment 09_meta_routed_automl_v8
+          .venv/bin/python scripts/package_submission.py --experiment 10_runtime_safe_dgp_v81
       - uses: actions/upload-artifact@v4
         with:
           name: kaggle-agent-submission
@@ -71,3 +75,4 @@ jobs:
             submissions/07_tree_diversity_automl_v6/submission.zip
             submissions/08_fingerprint_routed_automl_v7/submission.zip
             submissions/09_meta_routed_automl_v8/submission.zip
+            submissions/10_runtime_safe_dgp_v81/submission.zip

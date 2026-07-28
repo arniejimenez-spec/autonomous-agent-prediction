@@ -8,12 +8,12 @@ This repository contains an Agent Config for Kaggle's Autonomous Agent Predictio
 |---|---|
 | Best official Kaggle score | **0.822 AUC** |
 | Versions at the official best | v3, v4, v5, v6, and v7 |
-| Current candidate | **v8 — validated locally, official score pending** |
-| Agent source | [`submissions/09_meta_routed_automl_v8/agent/`](submissions/09_meta_routed_automl_v8/agent/) |
-| Kaggle build notebook | [`notebooks/build_agent_submission_v8.ipynb`](notebooks/build_agent_submission_v8.ipynb) |
-| Design notes | [`docs/V8.md`](docs/V8.md) |
+| Current candidate | **v8.1 — runtime-safe correction, official score pending** |
+| Agent source | [`submissions/10_runtime_safe_dgp_v81/agent/`](submissions/10_runtime_safe_dgp_v81/agent/) |
+| Kaggle build notebook | [`notebooks/build_agent_submission_v81.ipynb`](notebooks/build_agent_submission_v81.ipynb) |
+| Design notes | [`docs/V8.1.md`](docs/V8.1.md) |
 
-The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 added useful local safeguards, routing, and model diversity but did not move the black-box score beyond 0.822. V8 is the next submission candidate and remains officially unscored.
+The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 keeps the v8 models but restores a compact, bounded orchestration path.
 
 ## Score history
 
@@ -27,11 +27,12 @@ The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4�
 | v5 | **0.822** | Added regularized quadratic interactions for numeric-dominant datasets |
 | v6 | **0.822** | Added carefully routed XGBoost and Random Forest diversity |
 | v7 | **0.822** | Added dataset fingerprinting, routed specialists, and a deterministic baseline hedge |
-| v8 | Pending | Adds DGP probes, a wider submission frontier, and a public-leader plus train-CV portfolio |
+| v8 | 0.500 | Likely runtime failure; official output remained at chance level |
+| v8.1 | Pending | Caps the frontier at ten, emits a 135-character plan, and selects immediately |
 
 The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V8 raises selected-private replay AUC from **0.805604** for v7 to **0.805725**, with five improvements and no regressions. A nested group-held-out learned meta-ranker was tested and rejected because it did not beat the simpler train-CV hedge.
 
-## V8 strategy
+## V8.1 strategy
 
 The LLM acts as a lightweight orchestrator while a deterministic, pre-tested skill performs the modeling:
 
@@ -53,7 +54,7 @@ Specialists are activated conservatively:
 - histogram gradient boosting for threshold-heavy rules;
 - RBF SVC only on small, low-dimensional tasks.
 
-The agent submits up to 28 modeled candidates after its initial fallback, uses deterministic seeds, avoids network access and runtime installation, and falls back cleanly when optional boosting libraries are unavailable.
+The agent submits at most ten modeled candidates after its initial fallback. Compact `p01.csv` filenames keep the complete plan visible even under a 500-character output cap, and final selection occurs immediately after submission.
 
 ## Build the current submission
 
@@ -66,33 +67,33 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 uv pip install --python .venv\Scripts\python.exe catboost lightgbm xgboost
 ```
 
-Validate and package v8:
+Validate and package v8.1:
 
 ```powershell
 .\.venv\Scripts\python.exe validate_submission.py `
-  --agent-dir submissions/09_meta_routed_automl_v8/agent
+  --agent-dir submissions/10_runtime_safe_dgp_v81/agent
 
 .\.venv\Scripts\python.exe scripts/package_submission.py `
-  --experiment 09_meta_routed_automl_v8
+  --experiment 10_runtime_safe_dgp_v81
 ```
 
 The generated file is:
 
 ```text
-submissions/09_meta_routed_automl_v8/submission.zip
+submissions/10_runtime_safe_dgp_v81/submission.zip
 ```
 
-The currently validated v8 build has SHA-256:
+The currently validated v8.1 build has SHA-256:
 
 ```text
-2F260ADACCA7F35CEB43116B2C27DF96A3B4F50B04B88E5B0C1B04771BEA13C5
+DEC5596370C8345603852849B4E0A02962C7BFB012C007FD581004228AAF5B08
 ```
 
 The ZIP is intentionally excluded from Git and can be rebuilt by the notebook, locally, or in CI. It must contain `agent.yaml` at its root; do not zip the parent `agent/` directory.
 
 ## Build in a Kaggle notebook
 
-Upload and run [`notebooks/build_agent_submission_v8.ipynb`](notebooks/build_agent_submission_v8.ipynb). It is self-contained and writes:
+Upload and run [`notebooks/build_agent_submission_v81.ipynb`](notebooks/build_agent_submission_v81.ipynb). It is self-contained and writes:
 
 ```text
 /kaggle/working/submission.zip
@@ -104,8 +105,8 @@ After changing the agent source, regenerate the notebook with:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py `
-  --experiment 09_meta_routed_automl_v8 `
-  --output notebooks/build_agent_submission_v8.ipynb
+  --experiment 10_runtime_safe_dgp_v81 `
+  --output notebooks/build_agent_submission_v81.ipynb
 ```
 
 ## Local evaluation
@@ -116,7 +117,7 @@ Quick deterministic meta-evaluation:
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   train_13 train_06 train_16 train_11 `
   --fast `
-  --experiment 09_meta_routed_automl_v8
+  --experiment 10_runtime_safe_dgp_v81
 ```
 
 Run all sixteen solved tasks:
@@ -124,10 +125,18 @@ Run all sixteen solved tasks:
 ```powershell
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   --fast `
-  --experiment 09_meta_routed_automl_v8
+  --experiment 10_runtime_safe_dgp_v81
 ```
 
-Replay the v8 routing and selection policy against v7:
+Replay the runtime-safe ten-candidate frontier:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/replay_candidate_cap.py `
+  submissions/09_meta_routed_automl_v8/meta_results_all.json `
+  --cap 10
+```
+
+Compare the underlying v8 policy against v7:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/replay_v8_policy.py `
@@ -140,7 +149,7 @@ For full agent evaluation, copy `.env.example` to `.env`, configure the API key 
 
 ```powershell
 .\.venv\Scripts\python.exe run_local_eval.py `
-  --submission-dir submissions/09_meta_routed_automl_v8/agent `
+  --submission-dir submissions/10_runtime_safe_dgp_v81/agent `
   --dataset train_01 `
   --metric roc_auc
 ```
@@ -159,14 +168,15 @@ submissions/
   06_interaction_routed_automl_v5/  v5
   07_tree_diversity_automl_v6/      v6
   08_fingerprint_routed_automl_v7/  v7
-  09_meta_routed_automl_v8/         current candidate
+  09_meta_routed_automl_v8/         v8 runtime-failed experiment
+  10_runtime_safe_dgp_v81/          runtime-safe current candidate
 notebooks/                           self-contained Kaggle builders
 scripts/                             packaging, evaluation, and replay tools
 docs/                                version-specific experiment notes
 kaggle-kaggle-skill/                 organizer documentation
 ```
 
-Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), and [`docs/V8.md`](docs/V8.md).
+Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), and [`docs/V8.1.md`](docs/V8.1.md).
 
 The organizer-supplied `sample_submission/` remains unchanged.
 
