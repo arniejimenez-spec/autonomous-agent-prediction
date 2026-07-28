@@ -7,13 +7,13 @@ This repository contains an Agent Config for Kaggle's Autonomous Agent Predictio
 | Item | Status |
 |---|---|
 | Best official Kaggle score | **0.822 AUC** |
-| Versions at the official best | v3, v4, v5, v6, and v7 |
-| Current candidate | **v8.1 — runtime-safe correction, official score pending** |
-| Agent source | [`submissions/10_runtime_safe_dgp_v81/agent/`](submissions/10_runtime_safe_dgp_v81/agent/) |
-| Kaggle build notebook | [`notebooks/build_agent_submission_v81.ipynb`](notebooks/build_agent_submission_v81.ipynb) |
-| Design notes | [`docs/V8.1.md`](docs/V8.1.md) |
+| Versions at the official best | v3, v4, v5, v6, v7, and v8.1 |
+| Current candidate | **v9 — conservative full-data refit bagging, official score pending** |
+| Agent source | [`submissions/11_full_refit_bagging_v9/agent/`](submissions/11_full_refit_bagging_v9/agent/) |
+| Kaggle build notebook | [`notebooks/build_agent_submission_v9.ipynb`](notebooks/build_agent_submission_v9.ipynb) |
+| Design notes | [`docs/V9.md`](docs/V9.md) |
 
-The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 keeps the v8 models but restores a compact, bounded orchestration path.
+The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 restored the compact execution path and returned to 0.822. V9 preserves that runtime-safe path while adding two tightly bounded full-training candidates.
 
 ## Score history
 
@@ -28,11 +28,12 @@ The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4�
 | v6 | **0.822** | Added carefully routed XGBoost and Random Forest diversity |
 | v7 | **0.822** | Added dataset fingerprinting, routed specialists, and a deterministic baseline hedge |
 | v8 | 0.500 | Likely runtime failure; official output remained at chance level |
-| v8.1 | Pending | Caps the frontier at ten, emits a 135-character plan, and selects immediately |
+| v8.1 | **0.822** | Caps the frontier at ten, emits a 135-character plan, and selects immediately |
+| v9 | Pending | Adds one repeated-CV bag and one conservative full-data refit blend without changing the historical CV hedge |
 
-The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V8 raises selected-private replay AUC from **0.805604** for v7 to **0.805725**, with five improvements and no regressions. A nested group-held-out learned meta-ranker was tested and rejected because it did not beat the simpler train-CV hedge.
+The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V9 raises selected-private replay AUC from **0.805725** for v8.1 to **0.805892**, a **+0.000167** mean improvement with zero regressions. A broader refit frontier was tested and rejected because it crowded proven candidates out of the ten-file cap.
 
-## V8.1 strategy
+## V9 strategy
 
 The LLM acts as a lightweight orchestrator while a deterministic, pre-tested skill performs the modeling:
 
@@ -40,8 +41,9 @@ The LLM acts as a lightweight orchestrator while a deterministic, pre-tested ski
 2. infer the target, ID, binary-label mapping, feature types, and dataset fingerprint;
 3. route the dataset to a bounded portfolio of CatBoost, LightGBM, ExtraTrees, logistic regression, Random Forest, XGBoost, and DGP probes;
 4. produce leakage-safe out-of-fold predictions and rank-based blends;
-5. keep the highest train-CV candidate as one hedge while the other slot explores the strongest distinct public-frontier candidate;
-6. call `select_submission` with exactly two valid predictions.
+5. on datasets with at least 1,000 rows, add one second-seed CV bag and blend one full-data refit into the proven historical hedge at 20%;
+6. keep the best historical train-CV candidate as one hedge while the other slot explores the strongest public-frontier candidate;
+7. call `select_submission` with exactly two valid predictions.
 
 Specialists are activated conservatively:
 
@@ -67,33 +69,29 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 uv pip install --python .venv\Scripts\python.exe catboost lightgbm xgboost
 ```
 
-Validate and package v8.1:
+Validate and package v9:
 
 ```powershell
 .\.venv\Scripts\python.exe validate_submission.py `
-  --agent-dir submissions/10_runtime_safe_dgp_v81/agent
+  --agent-dir submissions/11_full_refit_bagging_v9/agent
 
 .\.venv\Scripts\python.exe scripts/package_submission.py `
-  --experiment 10_runtime_safe_dgp_v81
+  --experiment 11_full_refit_bagging_v9
 ```
 
 The generated file is:
 
 ```text
-submissions/10_runtime_safe_dgp_v81/submission.zip
+submissions/11_full_refit_bagging_v9/submission.zip
 ```
 
-The currently validated v8.1 build has SHA-256:
-
-```text
-DEC5596370C8345603852849B4E0A02962C7BFB012C007FD581004228AAF5B08
-```
+The validated v9 build SHA-256 is recorded in [`docs/V9.md`](docs/V9.md).
 
 The ZIP is intentionally excluded from Git and can be rebuilt by the notebook, locally, or in CI. It must contain `agent.yaml` at its root; do not zip the parent `agent/` directory.
 
 ## Build in a Kaggle notebook
 
-Upload and run [`notebooks/build_agent_submission_v81.ipynb`](notebooks/build_agent_submission_v81.ipynb). It is self-contained and writes:
+Upload and run [`notebooks/build_agent_submission_v9.ipynb`](notebooks/build_agent_submission_v9.ipynb). It is self-contained and writes:
 
 ```text
 /kaggle/working/submission.zip
@@ -105,8 +103,8 @@ After changing the agent source, regenerate the notebook with:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py `
-  --experiment 10_runtime_safe_dgp_v81 `
-  --output notebooks/build_agent_submission_v81.ipynb
+  --experiment 11_full_refit_bagging_v9 `
+  --output notebooks/build_agent_submission_v9.ipynb
 ```
 
 ## Local evaluation
@@ -117,7 +115,7 @@ Quick deterministic meta-evaluation:
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   train_13 train_06 train_16 train_11 `
   --fast `
-  --experiment 10_runtime_safe_dgp_v81
+  --experiment 11_full_refit_bagging_v9
 ```
 
 Run all sixteen solved tasks:
@@ -125,15 +123,15 @@ Run all sixteen solved tasks:
 ```powershell
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   --fast `
-  --experiment 10_runtime_safe_dgp_v81
+  --experiment 11_full_refit_bagging_v9
 ```
 
-Replay the runtime-safe ten-candidate frontier:
+Compare v9's exact two-selection policy with v8.1:
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/replay_candidate_cap.py `
-  submissions/09_meta_routed_automl_v8/meta_results_all.json `
-  --cap 10
+.\.venv\Scripts\python.exe scripts/replay_v9_policy.py `
+  submissions/11_full_refit_bagging_v9/meta_results_all.json `
+  --baseline-results submissions/09_meta_routed_automl_v8/meta_results_all.json
 ```
 
 Compare the underlying v8 policy against v7:
@@ -149,7 +147,7 @@ For full agent evaluation, copy `.env.example` to `.env`, configure the API key 
 
 ```powershell
 .\.venv\Scripts\python.exe run_local_eval.py `
-  --submission-dir submissions/10_runtime_safe_dgp_v81/agent `
+  --submission-dir submissions/11_full_refit_bagging_v9/agent `
   --dataset train_01 `
   --metric roc_auc
 ```
@@ -169,14 +167,15 @@ submissions/
   07_tree_diversity_automl_v6/      v6
   08_fingerprint_routed_automl_v7/  v7
   09_meta_routed_automl_v8/         v8 runtime-failed experiment
-  10_runtime_safe_dgp_v81/          runtime-safe current candidate
+  10_runtime_safe_dgp_v81/          v8.1 runtime-safe official 0.822
+  11_full_refit_bagging_v9/         conservative full-refit current candidate
 notebooks/                           self-contained Kaggle builders
 scripts/                             packaging, evaluation, and replay tools
 docs/                                version-specific experiment notes
 kaggle-kaggle-skill/                 organizer documentation
 ```
 
-Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), and [`docs/V8.1.md`](docs/V8.1.md).
+Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), [`docs/V8.1.md`](docs/V8.1.md), and [`docs/V9.md`](docs/V9.md).
 
 The organizer-supplied `sample_submission/` remains unchanged.
 
