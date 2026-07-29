@@ -7,13 +7,13 @@ This repository contains an Agent Config for Kaggle's Autonomous Agent Predictio
 | Item | Status |
 |---|---|
 | Best official Kaggle score | **0.822 AUC** |
-| Versions at the official best | v3, v4, v5, v6, v7, and v8.1 |
-| Current candidate | **v9 — conservative full-data refit bagging, official score pending** |
-| Agent source | [`submissions/11_full_refit_bagging_v9/agent/`](submissions/11_full_refit_bagging_v9/agent/) |
-| Kaggle build notebook | [`notebooks/build_agent_submission_v9.ipynb`](notebooks/build_agent_submission_v9.ipynb) |
-| Design notes | [`docs/V9.md`](docs/V9.md) |
+| Versions at the official best | v3, v4, v5, v6, v7, v8.1, and v9 |
+| Current candidate | **v10 — CV-gated neural representation specialist, official score pending** |
+| Agent source | [`submissions/12_cv_gated_mlp_v10/agent/`](submissions/12_cv_gated_mlp_v10/agent/) |
+| Kaggle build notebook | [`notebooks/build_agent_submission_v10.ipynb`](notebooks/build_agent_submission_v10.ipynb) |
+| Design notes | [`docs/V10.md`](docs/V10.md) |
 
-The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 restored the compact execution path and returned to 0.822. V9 preserves that runtime-safe path while adding two tightly bounded full-training candidates.
+The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 restored the compact execution path and returned to 0.822. V9 also scored 0.822, showing that its local full-refit gains did not transfer to the hidden tasks.
 
 ## Score history
 
@@ -29,11 +29,12 @@ The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4�
 | v7 | **0.822** | Added dataset fingerprinting, routed specialists, and a deterministic baseline hedge |
 | v8 | 0.500 | Likely runtime failure; official output remained at chance level |
 | v8.1 | **0.822** | Caps the frontier at ten, emits a 135-character plan, and selects immediately |
-| v9 | Pending | Adds one repeated-CV bag and one conservative full-data refit blend without changing the historical CV hedge |
+| v9 | **0.822** | Added repeated-CV and conservative full-data refit candidates; local gains did not transfer |
+| v10 | Pending | Replaces v9 refits with one MLP admitted only after a fixed +0.001 train-CV margin |
 
-The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V9 raises selected-private replay AUC from **0.805725** for v8.1 to **0.805892**, a **+0.000167** mean improvement with zero regressions. A broader refit frontier was tested and rejected because it crowded proven candidates out of the ten-file cap.
+The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V10 deliberately returns to the v8.1 selected-private baseline of **0.805725** with zero regressions. Its MLP is admitted on exactly one solved dataset, where it beats every established individual model by **+0.003830 train-CV AUC** and leads the inner-public split, while the unchanged historical hedge protects the second slot.
 
-## V9 strategy
+## V10 strategy
 
 The LLM acts as a lightweight orchestrator while a deterministic, pre-tested skill performs the modeling:
 
@@ -41,9 +42,10 @@ The LLM acts as a lightweight orchestrator while a deterministic, pre-tested ski
 2. infer the target, ID, binary-label mapping, feature types, and dataset fingerprint;
 3. route the dataset to a bounded portfolio of CatBoost, LightGBM, ExtraTrees, logistic regression, Random Forest, XGBoost, and DGP probes;
 4. produce leakage-safe out-of-fold predictions and rank-based blends;
-5. on datasets with at least 1,000 rows, add one second-seed CV bag and blend one full-data refit into the proven historical hedge at 20%;
-6. keep the best historical train-CV candidate as one hedge while the other slot explores the strongest public-frontier candidate;
-7. call `select_submission` with exactly two valid predictions.
+5. on bounded-size tasks, evaluate one regularized dense one-hot MLP with early stopping;
+6. expose the MLP only when its out-of-fold AUC beats the strongest established individual model by at least 0.001;
+7. keep the best historical train-CV candidate as one hedge while the other slot explores the strongest public-frontier candidate;
+8. call `select_submission` with exactly two valid predictions.
 
 Specialists are activated conservatively:
 
@@ -69,29 +71,29 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 uv pip install --python .venv\Scripts\python.exe catboost lightgbm xgboost
 ```
 
-Validate and package v9:
+Validate and package v10:
 
 ```powershell
 .\.venv\Scripts\python.exe validate_submission.py `
-  --agent-dir submissions/11_full_refit_bagging_v9/agent
+  --agent-dir submissions/12_cv_gated_mlp_v10/agent
 
 .\.venv\Scripts\python.exe scripts/package_submission.py `
-  --experiment 11_full_refit_bagging_v9
+  --experiment 12_cv_gated_mlp_v10
 ```
 
 The generated file is:
 
 ```text
-submissions/11_full_refit_bagging_v9/submission.zip
+submissions/12_cv_gated_mlp_v10/submission.zip
 ```
 
-The validated v9 build SHA-256 is recorded in [`docs/V9.md`](docs/V9.md).
+The validated v10 build SHA-256 is recorded in [`docs/V10.md`](docs/V10.md).
 
 The ZIP is intentionally excluded from Git and can be rebuilt by the notebook, locally, or in CI. It must contain `agent.yaml` at its root; do not zip the parent `agent/` directory.
 
 ## Build in a Kaggle notebook
 
-Upload and run [`notebooks/build_agent_submission_v9.ipynb`](notebooks/build_agent_submission_v9.ipynb). It is self-contained and writes:
+Upload and run [`notebooks/build_agent_submission_v10.ipynb`](notebooks/build_agent_submission_v10.ipynb). It is self-contained and writes:
 
 ```text
 /kaggle/working/submission.zip
@@ -103,8 +105,8 @@ After changing the agent source, regenerate the notebook with:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py `
-  --experiment 11_full_refit_bagging_v9 `
-  --output notebooks/build_agent_submission_v9.ipynb
+  --experiment 12_cv_gated_mlp_v10 `
+  --output notebooks/build_agent_submission_v10.ipynb
 ```
 
 ## Local evaluation
@@ -115,7 +117,7 @@ Quick deterministic meta-evaluation:
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   train_13 train_06 train_16 train_11 `
   --fast `
-  --experiment 11_full_refit_bagging_v9
+  --experiment 12_cv_gated_mlp_v10
 ```
 
 Run all sixteen solved tasks:
@@ -123,14 +125,14 @@ Run all sixteen solved tasks:
 ```powershell
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   --fast `
-  --experiment 11_full_refit_bagging_v9
+  --experiment 12_cv_gated_mlp_v10
 ```
 
-Compare v9's exact two-selection policy with v8.1:
+Compare v10's exact two-selection policy with v8.1:
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/replay_v9_policy.py `
-  submissions/11_full_refit_bagging_v9/meta_results_all.json `
+.\.venv\Scripts\python.exe scripts/replay_v10_policy.py `
+  submissions/12_cv_gated_mlp_v10/meta_results_all.json `
   --baseline-results submissions/09_meta_routed_automl_v8/meta_results_all.json
 ```
 
@@ -147,7 +149,7 @@ For full agent evaluation, copy `.env.example` to `.env`, configure the API key 
 
 ```powershell
 .\.venv\Scripts\python.exe run_local_eval.py `
-  --submission-dir submissions/11_full_refit_bagging_v9/agent `
+  --submission-dir submissions/12_cv_gated_mlp_v10/agent `
   --dataset train_01 `
   --metric roc_auc
 ```
@@ -168,14 +170,15 @@ submissions/
   08_fingerprint_routed_automl_v7/  v7
   09_meta_routed_automl_v8/         v8 runtime-failed experiment
   10_runtime_safe_dgp_v81/          v8.1 runtime-safe official 0.822
-  11_full_refit_bagging_v9/         conservative full-refit current candidate
+  11_full_refit_bagging_v9/         v9 full-refit official 0.822
+  12_cv_gated_mlp_v10/              CV-gated neural specialist current candidate
 notebooks/                           self-contained Kaggle builders
 scripts/                             packaging, evaluation, and replay tools
 docs/                                version-specific experiment notes
 kaggle-kaggle-skill/                 organizer documentation
 ```
 
-Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), [`docs/V8.1.md`](docs/V8.1.md), and [`docs/V9.md`](docs/V9.md).
+Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), [`docs/V8.1.md`](docs/V8.1.md), [`docs/V9.md`](docs/V9.md), and [`docs/V10.md`](docs/V10.md).
 
 The organizer-supplied `sample_submission/` remains unchanged.
 
