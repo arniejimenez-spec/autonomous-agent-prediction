@@ -31,8 +31,9 @@ jobs:
           .venv/bin/python validate_submission.py --agent-dir submissions/10_runtime_safe_dgp_v81/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/11_full_refit_bagging_v9/agent
           .venv/bin/python validate_submission.py --agent-dir submissions/12_cv_gated_mlp_v10/agent
+          .venv/bin/python validate_submission.py --agent-dir submissions/13_equation_discovery_v11/agent
       - name: Check Python syntax
-        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent submissions/06_interaction_routed_automl_v5/agent submissions/07_tree_diversity_automl_v6/agent submissions/08_fingerprint_routed_automl_v7/agent submissions/09_meta_routed_automl_v8/agent submissions/10_runtime_safe_dgp_v81/agent submissions/11_full_refit_bagging_v9/agent submissions/12_cv_gated_mlp_v10/agent
+        run: .venv/bin/python -m compileall -q scripts submissions/01_robust_automl/agent submissions/02_order_aware_automl/agent submissions/03_fail_safe_automl/agent submissions/04_adaptive_automl_v3/agent submissions/05_selection_stable_automl_v4/agent submissions/06_interaction_routed_automl_v5/agent submissions/07_tree_diversity_automl_v6/agent submissions/08_fingerprint_routed_automl_v7/agent submissions/09_meta_routed_automl_v8/agent submissions/10_runtime_safe_dgp_v81/agent submissions/11_full_refit_bagging_v9/agent submissions/12_cv_gated_mlp_v10/agent submissions/13_equation_discovery_v11/agent
         env:
           PYTHONPYCACHEPREFIX: /tmp/autonomous-agent-pycache
       - name: Build artifacts
@@ -58,6 +59,8 @@ jobs:
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v9.ipynb
           .venv/bin/python scripts/build_notebook.py --experiment 12_cv_gated_mlp_v10 --output notebooks/build_agent_submission_v10.ipynb
           .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v10.ipynb
+          .venv/bin/python scripts/build_notebook.py --experiment 13_equation_discovery_v11 --output notebooks/build_agent_submission_v11.ipynb
+          .venv/bin/python scripts/verify_notebook.py notebooks/build_agent_submission_v11.ipynb
           .venv/bin/python scripts/package_submission.py
           .venv/bin/python scripts/package_submission.py --experiment 02_order_aware_automl
           .venv/bin/python scripts/package_submission.py --experiment 03_fail_safe_automl
@@ -70,6 +73,7 @@ jobs:
           .venv/bin/python scripts/package_submission.py --experiment 10_runtime_safe_dgp_v81
           .venv/bin/python scripts/package_submission.py --experiment 11_full_refit_bagging_v9
           .venv/bin/python scripts/package_submission.py --experiment 12_cv_gated_mlp_v10
+          .venv/bin/python scripts/package_submission.py --experiment 13_equation_discovery_v11
       - uses: actions/upload-artifact@v4
         with:
           name: kaggle-agent-submission
@@ -86,3 +90,4 @@ jobs:
             submissions/10_runtime_safe_dgp_v81/submission.zip
             submissions/11_full_refit_bagging_v9/submission.zip
             submissions/12_cv_gated_mlp_v10/submission.zip
+            submissions/13_equation_discovery_v11/submission.zip

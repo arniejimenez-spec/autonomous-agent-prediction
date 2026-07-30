@@ -1,0 +1,515 @@
+[
+  {
+    "dataset": "train_01",
+    "rows": 14957,
+    "features": 12,
+    "numeric": 7,
+    "categorical": 5,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.7116909467572428,
+        "cv_auc_min": 0.7106094644254385,
+        "cv_auc_spread": 0.0021629646636084354,
+        "test_auc": 0.7164455726882856,
+        "test_private": 0.7125466067113664,
+        "test_public": 0.720444404337675
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.7073115722641582,
+        "cv_auc_min": 0.7068397295878446,
+        "cv_auc_spread": 0.0009436853526272326,
+        "test_auc": 0.7142885143614283,
+        "test_private": 0.7101677041493976,
+        "test_public": 0.7183992791021545
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.7067887519471991,
+        "cv_auc_min": 0.7055626958821652,
+        "cv_auc_spread": 0.002452112130067907,
+        "test_auc": 0.7111369091420232,
+        "test_private": 0.7079472244003138,
+        "test_public": 0.7144976691140329
+      }
+    ]
+  },
+  {
+    "dataset": "train_02",
+    "rows": 14929,
+    "features": 28,
+    "numeric": 26,
+    "categorical": 2,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.8568581761698472,
+        "cv_auc_min": 0.856693359655157,
+        "cv_auc_spread": 0.00032963302938027184,
+        "test_auc": 0.8513359507205416,
+        "test_private": 0.8523131080389146,
+        "test_public": 0.8503325516619903
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.966863947529802,
+        "cv_auc_min": 0.9668150392206949,
+        "cv_auc_spread": 9.781661821406384e-05,
+        "test_auc": 0.9723129459382656,
+        "test_private": 0.9717050691244239,
+        "test_public": 0.9729646571056997
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.8329386028958314,
+        "cv_auc_min": 0.8323923374661124,
+        "cv_auc_spread": 0.0010925308594380567,
+        "test_auc": 0.8304968171496305,
+        "test_private": 0.8327273745519714,
+        "test_public": 0.82826292317775
+      }
+    ]
+  },
+  {
+    "dataset": "train_03",
+    "rows": 3501,
+    "features": 18,
+    "numeric": 11,
+    "categorical": 7,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.8127964691652485,
+        "cv_auc_min": 0.8110945966322212,
+        "cv_auc_spread": 0.0034037450660547863,
+        "test_auc": 0.8134071996274521,
+        "test_private": 0.8183829162962265,
+        "test_public": 0.8085447552280826
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.7998676883450209,
+        "cv_auc_min": 0.7976767457207591,
+        "cv_auc_spread": 0.004381885248523454,
+        "test_auc": 0.8081818577856217,
+        "test_private": 0.8130721018785392,
+        "test_public": 0.8033399946971512
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.8085400743739021,
+        "cv_auc_min": 0.8074960068251141,
+        "cv_auc_spread": 0.0020881350975758828,
+        "test_auc": 0.8112479122494924,
+        "test_private": 0.8172391125824169,
+        "test_public": 0.8054524934990497
+      }
+    ]
+  },
+  {
+    "dataset": "train_04",
+    "rows": 8775,
+    "features": 12,
+    "numeric": 12,
+    "categorical": 0,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.7682147097206937,
+        "cv_auc_min": 0.7681890734183181,
+        "cv_auc_spread": 5.127260475112916e-05,
+        "test_auc": 0.7714413737762492,
+        "test_private": 0.7774443044304429,
+        "test_public": 0.7652189958109714
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.8187583032269117,
+        "cv_auc_min": 0.8179693700472196,
+        "cv_auc_spread": 0.0015778663593841724,
+        "test_auc": 0.8237777470842957,
+        "test_private": 0.8232196019601961,
+        "test_public": 0.8242161894690483
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.757247800862398,
+        "cv_auc_min": 0.7566651529040501,
+        "cv_auc_spread": 0.0011652959166955634,
+        "test_auc": 0.7618688874454151,
+        "test_private": 0.7661116511651165,
+        "test_public": 0.7574609070936948
+      }
+    ]
+  },
+  {
+    "dataset": "train_05",
+    "rows": 1060,
+    "features": 9,
+    "numeric": 4,
+    "categorical": 5,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.6846124814857013,
+        "cv_auc_min": 0.6800230716645779,
+        "cv_auc_spread": 0.009178819642246872,
+        "test_auc": 0.6789842441198888,
+        "test_private": 0.6831391901724957,
+        "test_public": 0.6752919348019352
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.6800782585165774,
+        "cv_auc_min": 0.6727419676427026,
+        "cv_auc_spread": 0.01467258174774988,
+        "test_auc": 0.6751846928522702,
+        "test_private": 0.6816925381078399,
+        "test_public": 0.6690010396174515
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.6729173194143785,
+        "cv_auc_min": 0.6727206049903156,
+        "cv_auc_spread": 0.0003934288481257653,
+        "test_auc": 0.679051673193145,
+        "test_private": 0.6844786235553683,
+        "test_public": 0.6739387018223666
+      }
+    ]
+  },
+  {
+    "dataset": "train_06",
+    "rows": 10803,
+    "features": 9,
+    "numeric": 0,
+    "categorical": 9,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.8085165168889253,
+        "cv_auc_min": 0.8082166751980715,
+        "cv_auc_spread": 0.000599683381707683,
+        "test_auc": 0.8049107916473257,
+        "test_private": 0.8118762333701572,
+        "test_public": 0.7979670076747213
+      }
+    ]
+  },
+  {
+    "dataset": "train_07",
+    "rows": 10417,
+    "features": 17,
+    "numeric": 11,
+    "categorical": 6,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.7424607263593854,
+        "cv_auc_min": 0.7421504704607627,
+        "cv_auc_spread": 0.0006205117972455376,
+        "test_auc": 0.7515557225946372,
+        "test_private": 0.7510929994105909,
+        "test_public": 0.7520891694772175
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.81770012298153,
+        "cv_auc_min": 0.8163284342765555,
+        "cv_auc_spread": 0.0027433774099490105,
+        "test_auc": 0.8280925532718464,
+        "test_private": 0.8283292772448877,
+        "test_public": 0.8279371556825138
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.7289159824814366,
+        "cv_auc_min": 0.7285041514193313,
+        "cv_auc_spread": 0.000823662124210589,
+        "test_auc": 0.7398867029067147,
+        "test_private": 0.7388467970024154,
+        "test_public": 0.7409269816884109
+      }
+    ]
+  },
+  {
+    "dataset": "train_08",
+    "rows": 8173,
+    "features": 12,
+    "numeric": 0,
+    "categorical": 12,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.8542803324955404,
+        "cv_auc_min": 0.8540180877995662,
+        "cv_auc_spread": 0.0005244893919481575,
+        "test_auc": 0.8521493954787074,
+        "test_private": 0.8497420256093118,
+        "test_public": 0.8547239592936308
+      }
+    ]
+  },
+  {
+    "dataset": "train_09",
+    "rows": 1109,
+    "features": 18,
+    "numeric": 14,
+    "categorical": 4,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.600854397856037,
+        "cv_auc_min": 0.6000624455227862,
+        "cv_auc_spread": 0.001583904666501712,
+        "test_auc": 0.6356198624794499,
+        "test_private": 0.6429733682008603,
+        "test_public": 0.6281556252089321
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.5853649810712009,
+        "cv_auc_min": 0.5753964640222722,
+        "cv_auc_spread": 0.01993703409785741,
+        "test_auc": 0.6168207072828291,
+        "test_private": 0.624154760359891,
+        "test_public": 0.6095686072690537
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.5705878335306438,
+        "cv_auc_min": 0.5649173247297279,
+        "cv_auc_spread": 0.011341017601831815,
+        "test_auc": 0.627746710986844,
+        "test_private": 0.6348699164213026,
+        "test_public": 0.6207202419444013
+      }
+    ]
+  },
+  {
+    "dataset": "train_10",
+    "rows": 11800,
+    "features": 27,
+    "numeric": 27,
+    "categorical": 0,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.6491833313338491,
+        "cv_auc_min": 0.6460771784840784,
+        "cv_auc_spread": 0.006212305699541343,
+        "test_auc": 0.6504567583239411,
+        "test_private": 0.6418892526178324,
+        "test_public": 0.6589050654248104
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.787812086169958,
+        "cv_auc_min": 0.7859782775569153,
+        "cv_auc_spread": 0.00366761722608544,
+        "test_auc": 0.8039635322963727,
+        "test_private": 0.8120556702109837,
+        "test_public": 0.7960614073698253
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.6246506360888066,
+        "cv_auc_min": 0.6231888579543392,
+        "cv_auc_spread": 0.0029235562689347017,
+        "test_auc": 0.6368022501185637,
+        "test_private": 0.6301676753623968,
+        "test_public": 0.6433785029405604
+      }
+    ]
+  },
+  {
+    "dataset": "train_11",
+    "rows": 28879,
+    "features": 20,
+    "numeric": 20,
+    "categorical": 0,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.720630975791602,
+        "cv_auc_min": 0.720348282246408,
+        "cv_auc_spread": 0.0005653870903878921,
+        "test_auc": 0.7271037021676408,
+        "test_private": 0.71607401416167,
+        "test_public": 0.7379027379942712
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.7113574845330817,
+        "cv_auc_min": 0.7104392305332934,
+        "cv_auc_spread": 0.0018365079995764644,
+        "test_auc": 0.7208253250053123,
+        "test_private": 0.7101540531488486,
+        "test_public": 0.7313771583107969
+      }
+    ]
+  },
+  {
+    "dataset": "train_12",
+    "rows": 49432,
+    "features": 8,
+    "numeric": 5,
+    "categorical": 3,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.7014311112093301,
+        "cv_auc_min": 0.7013888139968685,
+        "cv_auc_spread": 8.459442492336766e-05,
+        "test_auc": 0.6951088424133312,
+        "test_private": 0.6844886322908986,
+        "test_public": 0.705924696531563
+      }
+    ]
+  },
+  {
+    "dataset": "train_13",
+    "rows": 500,
+    "features": 9,
+    "numeric": 5,
+    "categorical": 4,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.6423439999999999,
+        "cv_auc_min": 0.625632,
+        "cv_auc_spread": 0.0334239999999999,
+        "test_auc": 0.6320576882307529,
+        "test_private": 0.6407278429113716,
+        "test_public": 0.6234591338365354
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.623672,
+        "cv_auc_min": 0.604752,
+        "cv_auc_spread": 0.037840000000000096,
+        "test_auc": 0.6259562638250553,
+        "test_private": 0.6331431725726903,
+        "test_public": 0.6188507954031817
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.644736,
+        "cv_auc_min": 0.633424,
+        "cv_auc_spread": 0.022623999999999977,
+        "test_auc": 0.6336076944307777,
+        "test_private": 0.6409624838499355,
+        "test_public": 0.6262901851607405
+      }
+    ]
+  },
+  {
+    "dataset": "train_14",
+    "rows": 11108,
+    "features": 23,
+    "numeric": 8,
+    "categorical": 15,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.735316815544405,
+        "cv_auc_min": 0.7351165162544405,
+        "cv_auc_spread": 0.00040059857992880143,
+        "test_auc": 0.7331379135500065,
+        "test_private": 0.7373035867559435,
+        "test_public": 0.7291762666912427
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.7608737049517058,
+        "cv_auc_min": 0.7597823599169301,
+        "cv_auc_spread": 0.0021826900695512963,
+        "test_auc": 0.7612609780125343,
+        "test_private": 0.7664899435522946,
+        "test_public": 0.7561878558409111
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.727544386141111,
+        "cv_auc_min": 0.7268060327416478,
+        "cv_auc_spread": 0.0014767067989266414,
+        "test_auc": 0.7313536790072256,
+        "test_private": 0.7339966690797277,
+        "test_public": 0.7287997857274514
+      }
+    ]
+  },
+  {
+    "dataset": "train_15",
+    "rows": 500,
+    "features": 30,
+    "numeric": 6,
+    "categorical": 24,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.833032,
+        "cv_auc_min": 0.825296,
+        "cv_auc_spread": 0.01547199999999993,
+        "test_auc": 0.8556674321611023,
+        "test_private": 0.858876970162853,
+        "test_public": 0.8522496402217876
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.821872,
+        "cv_auc_min": 0.8204800000000001,
+        "cv_auc_spread": 0.0027839999999998977,
+        "test_auc": 0.8446021362270761,
+        "test_private": 0.8492744493530966,
+        "test_public": 0.8399410717621283
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.845144,
+        "cv_auc_min": 0.828544,
+        "cv_auc_spread": 0.03320000000000012,
+        "test_auc": 0.8530728684249306,
+        "test_private": 0.8562934858648581,
+        "test_public": 0.8496800130738222
+      }
+    ]
+  },
+  {
+    "dataset": "train_16",
+    "rows": 1809,
+    "features": 21,
+    "numeric": 21,
+    "categorical": 0,
+    "models": [
+      {
+        "name": "unary_equations",
+        "cv_auc_mean": 0.8137643409109243,
+        "cv_auc_min": 0.813488095791051,
+        "cv_auc_spread": 0.0005524902397467946,
+        "test_auc": 0.8209985899504681,
+        "test_private": 0.8206083468163106,
+        "test_public": 0.8213376537653767
+      },
+      {
+        "name": "relation_equations",
+        "cv_auc_mean": 0.882021943152177,
+        "cv_auc_min": 0.8794434516461033,
+        "cv_auc_spread": 0.005156983012147398,
+        "test_auc": 0.8918006685725195,
+        "test_private": 0.8907850036864849,
+        "test_public": 0.8928457645764576
+      },
+      {
+        "name": "quantile_bins",
+        "cv_auc_mean": 0.7689331804614026,
+        "cv_auc_min": 0.7680396619542019,
+        "cv_auc_spread": 0.0017870370144014158,
+        "test_auc": 0.7939578871553171,
+        "test_private": 0.793480841798595,
+        "test_public": 0.7944495249524953
+      }
+    ]
+  }
+]
