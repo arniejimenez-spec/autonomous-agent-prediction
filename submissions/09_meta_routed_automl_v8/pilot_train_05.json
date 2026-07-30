@@ -1,0 +1,135 @@
+[
+  {
+    "dataset": "train_05",
+    "elapsed_seconds": 160.5,
+    "scores": [
+      {
+        "file": "candidate_01_v5safe_v4_blend.csv",
+        "cv_auc": 0.6910604420644868,
+        "test_auc": 0.6794615083405622,
+        "test_private": 0.6805941067171544,
+        "test_public": 0.6783715351492113
+      },
+      {
+        "file": "candidate_02_v6safe_v3_blend.csv",
+        "cv_auc": 0.6895205508715961,
+        "test_auc": 0.6819422821534866,
+        "test_private": 0.6840143026520942,
+        "test_public": 0.6799352069518029
+      },
+      {
+        "file": "candidate_03_blend.csv",
+        "cv_auc": 0.689394155178307,
+        "test_auc": 0.6808167907073576,
+        "test_private": 0.6831303886389164,
+        "test_public": 0.6786293968055916
+      },
+      {
+        "file": "candidate_04_v5safe_v6safe_broad_blend.csv",
+        "cv_auc": 0.6874643955793551,
+        "test_auc": 0.6783780625520971,
+        "test_private": 0.6808893581617661,
+        "test_public": 0.6759373499511914
+      },
+      {
+        "file": "candidate_05_v21_blend.csv",
+        "cv_auc": 0.687133274467358,
+        "test_auc": 0.6762304535698324,
+        "test_private": 0.6772755284880837,
+        "test_public": 0.6752247257526331
+      },
+      {
+        "file": "candidate_06_v5safe_v6safe_top2_blend.csv",
+        "cv_auc": 0.6855399766435001,
+        "test_auc": 0.6774862025434143,
+        "test_private": 0.6799283107088578,
+        "test_public": 0.6751644058311501
+      },
+      {
+        "file": "candidate_07_v21_broad_blend.csv",
+        "cv_auc": 0.6853405918878888,
+        "test_auc": 0.6817801003303005,
+        "test_private": 0.6834958923242785,
+        "test_public": 0.6800922950872988
+      },
+      {
+        "file": "candidate_08_v21_top2_blend.csv",
+        "cv_auc": 0.6833805685313888,
+        "test_auc": 0.6825351619313895,
+        "test_private": 0.6846032852764267,
+        "test_public": 0.6806146672094658
+      },
+      {
+        "file": "candidate_09_catboost_d6.csv",
+        "cv_auc": 0.681632391477726,
+        "test_auc": 0.6757211050318932,
+        "test_private": 0.6790965657856225,
+        "test_public": 0.6723699032269796
+      },
+      {
+        "file": "candidate_10_catboost_ordered_d5.csv",
+        "cv_auc": 0.6806959952147659,
+        "test_auc": 0.6756994221142398,
+        "test_private": 0.6772280002067561,
+        "test_public": 0.6743257746784179
+      },
+      {
+        "file": "candidate_11_catboost_d4_smooth.csv",
+        "cv_auc": 0.6728345391363793,
+        "test_auc": 0.6756662176462465,
+        "test_private": 0.6779296424609025,
+        "test_public": 0.6734394002677788
+      },
+      {
+        "file": "candidate_12_spline_logistic.csv",
+        "cv_auc": 0.6717165603281303,
+        "test_auc": 0.6729204281728149,
+        "test_private": 0.6744922435285123,
+        "test_public": 0.6718377581560464
+      },
+      {
+        "file": "candidate_13_logistic.csv",
+        "cv_auc": 0.669249173977441,
+        "test_auc": 0.6782952714117212,
+        "test_private": 0.6787052976110558,
+        "test_public": 0.6780480665662777
+      },
+      {
+        "file": "candidate_14_random_forest.csv",
+        "cv_auc": 0.6559972086134214,
+        "test_auc": 0.6567715751831568,
+        "test_private": 0.6573883033379737,
+        "test_public": 0.6561390379797617
+      },
+      {
+        "file": "candidate_15_lightgbm.csv",
+        "cv_auc": 0.6494495556568303,
+        "test_auc": 0.6558934370208857,
+        "test_private": 0.6568822951711106,
+        "test_public": 0.655089647579457
+      },
+      {
+        "file": "candidate_16_extra_trees.csv",
+        "cv_auc": 0.6490988521134783,
+        "test_auc": 0.6373022153861023,
+        "test_private": 0.6336606490314871,
+        "test_public": 0.6408929174799443
+      },
+      {
+        "file": "candidate_17_hist_gradient_boosting.csv",
+        "cv_auc": 0.6468931582545289,
+        "test_auc": 0.6475818586148953,
+        "test_private": 0.6518562994416147,
+        "test_public": 0.6435378619255367
+      },
+      {
+        "file": "candidate_18_rbf_svc.csv",
+        "cv_auc": 0.6136421898142873,
+        "test_auc": 0.6232129395331436,
+        "test_private": 0.6249906583723147,
+        "test_public": 0.6216682455586354
+      }
+    ],
+    "stdout": "WORKDIR C:\\Users\\arnie\\OneDrive\\Documents\\Claude\\Projects\\Autonomous Agent\\submissions\\09_meta_routed_automl_v8\\train_05_gktg8sbj\n{\"categorical\": 6, \"features\": 9, \"folds\": 3, \"models\": [\"extra_trees\", \"spline_logistic\", \"hist_gradient_boosting\", \"rbf_svc\", \"random_forest\", \"logistic\", \"catboost_d6\", \"catboost_d4_smooth\", \"catboost_ordered_d5\", \"lightgbm\"], \"numeric\": 4, \"rows\": 1060, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.649099 folds=0.66067,0.64392,0.64520\nMODEL spline_logistic cv_auc=0.671717 folds=0.66094,0.68026,0.67440\nMODEL hist_gradient_boosting cv_auc=0.646893 folds=0.65481,0.64770,0.64358\nMODEL rbf_svc cv_auc=0.613642 folds=0.60779,0.60626,0.62676\nMODEL random_forest cv_auc=0.655997 folds=0.66362,0.66189,0.64316\nMODEL logistic cv_auc=0.669249 folds=0.65580,0.68398,0.66991\nMODEL catboost_d6 cv_auc=0.681632 folds=0.66356,0.70000,0.68773\nMODEL catboost_d4_smooth cv_auc=0.672835 folds=0.67786,0.68254,0.70009\nMODEL catboost_ordered_d5 cv_auc=0.680696 folds=0.66305,0.68587,0.70635\nMODEL lightgbm cv_auc=0.649450 folds=0.62573,0.66225,0.66288\nDGP_PROFILE {\"active_probes\": [], \"best_model\": \"catboost_d6\", \"best_model_cv\": 0.681632391477726, \"profile\": \"interaction_or_threshold\", \"tree_minus_additive_cv\": 0.00991583114959571}\nCANDIDATES candidate_01_v5safe_v4_blend.csv candidate_02_v6safe_v3_blend.csv candidate_03_blend.csv candidate_04_v5safe_v6safe_broad_blend.csv candidate_05_v21_blend.csv candidate_06_v5safe_v6safe_top2_blend.csv candidate_07_v21_broad_blend.csv candidate_08_v21_top2_blend.csv candidate_09_catboost_d6.csv candidate_10_catboost_ordered_d5.csv candidate_11_catboost_d4_smooth.csv candidate_12_spline_logistic.csv candidate_13_logistic.csv candidate_14_random_forest.csv candidate_15_lightgbm.csv candidate_16_extra_trees.csv candidate_17_hist_gradient_boosting.csv candidate_18_rbf_svc.csv\nCV_HEDGE candidate_01_v5safe_v4_blend.csv\nDONE elapsed_seconds=160.5\n"
+  }
+]

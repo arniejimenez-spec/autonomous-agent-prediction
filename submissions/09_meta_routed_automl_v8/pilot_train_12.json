@@ -1,0 +1,58 @@
+[
+  {
+    "dataset": "train_12",
+    "elapsed_seconds": 357.4,
+    "scores": [
+      {
+        "file": "candidate_01_weighted_top2_0.80.csv",
+        "cv_auc": 0.7869835614061366,
+        "test_auc": 0.7838913764270978,
+        "test_private": 0.7729456587408864,
+        "test_public": 0.7946245042592861
+      },
+      {
+        "file": "candidate_02_blend.csv",
+        "cv_auc": 0.7869607172936723,
+        "test_auc": 0.783944176530586,
+        "test_private": 0.7730153389192677,
+        "test_public": 0.7946758643332447
+      },
+      {
+        "file": "candidate_03_catboost_d6.csv",
+        "cv_auc": 0.7867664277488441,
+        "test_auc": 0.783447575557248,
+        "test_private": 0.7724355774350783,
+        "test_public": 0.7942285036890453
+      },
+      {
+        "file": "candidate_04_top2_blend.csv",
+        "cv_auc": 0.7864051781079575,
+        "test_auc": 0.784042236722784,
+        "test_private": 0.7731560592795118,
+        "test_public": 0.7947873844938336
+      },
+      {
+        "file": "candidate_05_lightgbm.csv",
+        "cv_auc": 0.7830353334822988,
+        "test_auc": 0.7829370145565485,
+        "test_private": 0.7722213368866224,
+        "test_public": 0.7935595427257414
+      },
+      {
+        "file": "candidate_06_broad_blend.csv",
+        "cv_auc": 0.7819328484586567,
+        "test_auc": 0.7796523881186807,
+        "test_private": 0.7689181284304087,
+        "test_public": 0.7902644179807619
+      },
+      {
+        "file": "candidate_07_extra_trees.csv",
+        "cv_auc": 0.7503200189235356,
+        "test_auc": 0.7501934303791237,
+        "test_private": 0.7405785358810519,
+        "test_public": 0.7599202942852237
+      }
+    ],
+    "stdout": "WORKDIR C:\\Users\\arnie\\OneDrive\\Documents\\Claude\\Projects\\Autonomous Agent\\submissions\\09_meta_routed_automl_v8\\train_12_qrnbprbv\n{\"categorical\": 4, \"features\": 8, \"folds\": 3, \"models\": [\"extra_trees\", \"catboost_d6\", \"lightgbm\"], \"numeric\": 7, \"rows\": 49432, \"test_rows\": 10000}\nMODEL extra_trees cv_auc=0.750320 folds=0.74705,0.75035,0.75385\nMODEL catboost_d6 cv_auc=0.786766 folds=0.78183,0.78926,0.78981\nMODEL lightgbm cv_auc=0.783035 folds=0.77877,0.78396,0.78666\nDGP_PROFILE {\"active_probes\": [], \"best_model\": \"catboost_d6\", \"best_model_cv\": 0.7867664277488441, \"profile\": \"interaction_or_threshold\", \"tree_minus_additive_cv\": Infinity}\nCANDIDATES candidate_01_weighted_top2_0.80.csv candidate_02_blend.csv candidate_03_catboost_d6.csv candidate_04_top2_blend.csv candidate_05_lightgbm.csv candidate_06_broad_blend.csv candidate_07_extra_trees.csv\nCV_HEDGE candidate_01_weighted_top2_0.80.csv\nDONE elapsed_seconds=357.4\n"
+  }
+]

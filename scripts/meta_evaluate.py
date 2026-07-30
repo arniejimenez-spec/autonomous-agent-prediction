@@ -35,10 +35,18 @@ def evaluate(dataset: str, fast: bool, experiment: str) -> dict:
             overall = roc_auc_score(merged["target_true"], merged["target_pred"])
             split = {usage: roc_auc_score(g["target_true"], g["target_pred"])
                      for usage, g in merged.groupby("Usage")}
-            scores.append({"file": item["file"], "cv_auc": item["cv_auc"],
+            scores.append({"file": item["file"], "name": item.get("name"),
+                           "members": item.get("members"), "cv_auc": item["cv_auc"],
                            "test_auc": overall, **{f"test_{k.lower()}": v for k, v in split.items()}})
-        return {"dataset": dataset, "elapsed_seconds": manifest["elapsed_seconds"], "scores": scores,
-                "stdout": completed.stdout}
+        return {
+            "dataset": dataset,
+            "elapsed_seconds": manifest["elapsed_seconds"],
+            "scores": scores,
+            "v9_variants": manifest.get("v9_variants", []),
+            "v10_specialist": manifest.get("v10_specialist"),
+            "cv_hedge_file": manifest.get("cv_hedge_file"),
+            "stdout": completed.stdout,
+        }
 
 
 def main():
