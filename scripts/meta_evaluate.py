@@ -45,6 +45,8 @@ def evaluate(dataset: str, fast: bool, experiment: str) -> dict:
             "v9_variants": manifest.get("v9_variants", []),
             "v10_specialist": manifest.get("v10_specialist"),
             "v11_specialist": manifest.get("v11_specialist"),
+            "v12_count_specialist": manifest.get("v12_count_specialist"),
+            "count_specialist_files": manifest.get("count_specialist_files", []),
             "cv_hedge_file": manifest.get("cv_hedge_file"),
             "stdout": completed.stdout,
         }

@@ -1,0 +1,184 @@
+[
+  {
+    "dataset": "train_07",
+    "elapsed_seconds": 769.8,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "name": "v6safe_broad_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8256506377740446,
+        "test_auc": 0.8331504420756688,
+        "test_private": 0.8336722875778712,
+        "test_public": 0.8327608211209397
+      },
+      {
+        "file": "p02.csv",
+        "name": "blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "lightgbm",
+          "hist_gradient_boosting",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8252326126547831,
+        "test_auc": 0.8327652021923266,
+        "test_private": 0.8330599134434407,
+        "test_public": 0.8325680633404149
+      },
+      {
+        "file": "p03.csv",
+        "name": "v6safe_v21_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8250929329789742,
+        "test_auc": 0.8324403148236819,
+        "test_private": 0.8328818744457785,
+        "test_public": 0.8321108537273306
+      },
+      {
+        "file": "p04.csv",
+        "name": "v3_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "lightgbm",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8250702214360686,
+        "test_auc": 0.8327072901836925,
+        "test_private": 0.8332394727741166,
+        "test_public": 0.8322165544446711
+      },
+      {
+        "file": "p05.csv",
+        "name": "v5safe_v4_top2_blend",
+        "members": [
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8245458650022941,
+        "test_auc": 0.832844178568868,
+        "test_private": 0.8333422152788348,
+        "test_public": 0.832454841148865
+      },
+      {
+        "file": "p06.csv",
+        "name": "v6safe_top2_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8244296526918414,
+        "test_auc": 0.8317982416833956,
+        "test_private": 0.8320878605249694,
+        "test_public": 0.8315050549907783
+      },
+      {
+        "file": "p07.csv",
+        "name": "v5safe_v4_blend",
+        "members": [
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8234988112571975,
+        "test_auc": 0.8317284072025175,
+        "test_private": 0.8321141062738384,
+        "test_public": 0.831370548627531
+      },
+      {
+        "file": "p08.csv",
+        "name": "xgboost",
+        "members": [
+          "xgboost"
+        ],
+        "cv_auc": 0.821429424691547,
+        "test_auc": 0.8291083839144885,
+        "test_private": 0.8294256774003776,
+        "test_public": 0.828856855943765
+      },
+      {
+        "file": "p09.csv",
+        "name": "catboost_d6",
+        "members": [
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8197311100797514,
+        "test_auc": 0.8287211236121922,
+        "test_private": 0.8290225490991545,
+        "test_public": 0.8284955051190033
+      },
+      {
+        "file": "p10.csv",
+        "name": "lightgbm",
+        "members": [
+          "lightgbm"
+        ],
+        "cv_auc": 0.8184498251137458,
+        "test_auc": 0.8291894207182802,
+        "test_private": 0.8301391136714587,
+        "test_public": 0.8285316722077527
+      }
+    ],
+    "v9_variants": [],
+    "v10_specialist": null,
+    "v11_specialist": null,
+    "v12_stacks": null,
+    "v12_count_specialist": {
+      "attempted": true,
+      "admitted": false,
+      "count_sources": [
+        "feature_1",
+        "feature_10",
+        "feature_12",
+        "feature_13",
+        "feature_14"
+      ],
+      "required_margin": 0.0006,
+      "cv_margin": -0.002637599136253388,
+      "models": [
+        {
+          "name": "catboost_count_d6",
+          "cv_auc": 0.8181161202844607,
+          "fold_auc": [
+            0.8191962138555955,
+            0.8133449228378622,
+            0.8225375372833896
+          ],
+          "seconds": 127.6
+        },
+        {
+          "name": "catboost_count_ordered_d5",
+          "cv_auc": 0.8159084919491266,
+          "fold_auc": [
+            0.816611947397855,
+            0.8148550100545259,
+            0.8175423015255863
+          ],
+          "seconds": 134.9
+        },
+        {
+          "name": "catboost_count_d4",
+          "cv_auc": 0.8128949356651304,
+          "fold_auc": [
+            0.8142744649530214,
+            0.8089640104730356,
+            0.8162675224048819
+          ],
+          "seconds": 84.7
+        }
+      ]
+    },
+    "count_specialist_files": [],
+    "cv_hedge_file": "p01.csv",
+    "stdout": "CV_HEDGE p01.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=769.8\n"
+  }
+]

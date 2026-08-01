@@ -1,0 +1,422 @@
+[
+  {
+    "dataset": "train_03",
+    "elapsed_seconds": 480.5,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "name": "blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "catboost_ordered_d5",
+          "spline_logistic"
+        ],
+        "cv_auc": 0.8142914211525017,
+        "test_auc": 0.8162873362357721,
+        "test_private": 0.8229322883563086,
+        "test_public": 0.8099366330366202
+      },
+      {
+        "file": "p02.csv",
+        "name": "v5safe_v6safe_v3_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "catboost_ordered_d5",
+          "logistic"
+        ],
+        "cv_auc": 0.8141540180771534,
+        "test_auc": 0.8166889948110617,
+        "test_private": 0.8235441945400814,
+        "test_public": 0.8100704843657967
+      },
+      {
+        "file": "p03.csv",
+        "name": "v5safe_v6safe_broad_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.81334477597424,
+        "test_auc": 0.8160632547149829,
+        "test_private": 0.8232650443471965,
+        "test_public": 0.8090922415673262
+      },
+      {
+        "file": "p04.csv",
+        "name": "v21_blend",
+        "members": [
+          "catboost_d6",
+          "logistic"
+        ],
+        "cv_auc": 0.8131164779903771,
+        "test_auc": 0.8162254902960882,
+        "test_private": 0.8226030527461851,
+        "test_public": 0.8100186399776876
+      },
+      {
+        "file": "p05.csv",
+        "name": "v5safe_v6safe_weighted_top2_0.65",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8130998329622472,
+        "test_auc": 0.815906879696726,
+        "test_private": 0.8232472024174134,
+        "test_public": 0.8087924561934923
+      },
+      {
+        "file": "p06.csv",
+        "name": "v5safe_v6safe_top2_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8130774764048567,
+        "test_auc": 0.8158859976912183,
+        "test_private": 0.82309550600993,
+        "test_public": 0.8088810236898452
+      },
+      {
+        "file": "p07.csv",
+        "name": "catboost_d4_smooth",
+        "members": [
+          "catboost_d4_smooth"
+        ],
+        "cv_auc": 0.8122786782411623,
+        "test_auc": 0.8156591759072542,
+        "test_private": 0.8233213704394268,
+        "test_public": 0.8082757724613812
+      },
+      {
+        "file": "p08.csv",
+        "name": "v21_top2_blend",
+        "members": [
+          "catboost_d6",
+          "logistic"
+        ],
+        "cv_auc": 0.8116303380768399,
+        "test_auc": 0.8146903228586073,
+        "test_private": 0.8205713129932134,
+        "test_public": 0.8089403887145008
+      },
+      {
+        "file": "p09.csv",
+        "name": "catboost_d6",
+        "members": [
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8114620927434857,
+        "test_auc": 0.8152466562888699,
+        "test_private": 0.8220657146276941,
+        "test_public": 0.8086015600360414
+      },
+      {
+        "file": "p10.csv",
+        "name": "catboost_ordered_d5",
+        "members": [
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8110495571443398,
+        "test_auc": 0.8151262847283852,
+        "test_private": 0.8221316417583725,
+        "test_public": 0.8083348174589498
+      }
+    ],
+    "v9_variants": [],
+    "v10_specialist": null,
+    "v11_specialist": null,
+    "v12_stacks": null,
+    "v12_count_specialist": {
+      "attempted": true,
+      "admitted": false,
+      "count_sources": [
+        "feature_2",
+        "feature_11",
+        "feature_17"
+      ],
+      "required_margin": 0.0006,
+      "cv_margin": -8.306195410012762e-05,
+      "models": [
+        {
+          "name": "catboost_count_ordered_d5",
+          "cv_auc": 0.8127542038487222,
+          "fold_auc": [
+            0.8064897985559949,
+            0.827380287978569,
+            0.8056820251320342
+          ],
+          "seconds": 98.3
+        },
+        {
+          "name": "catboost_count_d4",
+          "cv_auc": 0.8107502730110986,
+          "fold_auc": [
+            0.80705670863172,
+            0.824219690872454,
+            0.8053882893415032
+          ],
+          "seconds": 58.2
+        },
+        {
+          "name": "catboost_count_d6",
+          "cv_auc": 0.8096249385602637,
+          "fold_auc": [
+            0.8053882893415031,
+            0.8237144653127405,
+            0.8013670463691318
+          ],
+          "seconds": 64.8
+        }
+      ]
+    },
+    "count_specialist_files": [],
+    "cv_hedge_file": "p01.csv",
+    "stdout": "CV_HEDGE p01.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=480.5\n"
+  },
+  {
+    "dataset": "train_09",
+    "elapsed_seconds": 207.1,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "name": "v6safe_broad_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "random_forest"
+        ],
+        "cv_auc": 0.6368467612889797,
+        "test_auc": 0.642688050752203,
+        "test_private": 0.6504462954906098,
+        "test_public": 0.6349220256106579
+      },
+      {
+        "file": "p02.csv",
+        "name": "v5safe_v4_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "logistic",
+          "lightgbm"
+        ],
+        "cv_auc": 0.6361979132787802,
+        "test_auc": 0.6445549582198329,
+        "test_private": 0.6523892325842511,
+        "test_public": 0.6367496666287409
+      },
+      {
+        "file": "p03.csv",
+        "name": "v6safe_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "random_forest",
+          "logistic",
+          "lightgbm"
+        ],
+        "cv_auc": 0.635836900100173,
+        "test_auc": 0.64500198000792,
+        "test_private": 0.6529059890465871,
+        "test_public": 0.6371051612895999
+      },
+      {
+        "file": "p04.csv",
+        "name": "v21_blend",
+        "members": [
+          "catboost_d6",
+          "random_forest",
+          "logistic",
+          "lightgbm"
+        ],
+        "cv_auc": 0.6351116213719802,
+        "test_auc": 0.6414861659446638,
+        "test_private": 0.6481925364653729,
+        "test_public": 0.6348045675503066
+      },
+      {
+        "file": "p05.csv",
+        "name": "v5safe_v6safe_top2_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.6340220770942017,
+        "test_auc": 0.6382094128376513,
+        "test_private": 0.6454557033544286,
+        "test_public": 0.6309795794201316
+      },
+      {
+        "file": "p06.csv",
+        "name": "v21_broad_blend",
+        "members": [
+          "catboost_d6",
+          "random_forest",
+          "logistic"
+        ],
+        "cv_auc": 0.6331211703331728,
+        "test_auc": 0.6437956151824606,
+        "test_private": 0.650529501361616,
+        "test_public": 0.6370757967745121
+      },
+      {
+        "file": "p07.csv",
+        "name": "v21_top2_blend",
+        "members": [
+          "catboost_d6",
+          "random_forest"
+        ],
+        "cv_auc": 0.6326821002510831,
+        "test_auc": 0.6406060824243297,
+        "test_private": 0.6477243434296724,
+        "test_public": 0.6335702177566822
+      },
+      {
+        "file": "p08.csv",
+        "name": "v5safe_v4_broad_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_d6",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.6322804324352453,
+        "test_auc": 0.638375173500694,
+        "test_private": 0.6462569598910899,
+        "test_public": 0.6306666513043044
+      },
+      {
+        "file": "p09.csv",
+        "name": "catboost_d4_smooth",
+        "members": [
+          "catboost_d4_smooth"
+        ],
+        "cv_auc": 0.6258895234626043,
+        "test_auc": 0.6374503498013993,
+        "test_private": 0.6464168111701962,
+        "test_public": 0.6285569669192335
+      },
+      {
+        "file": "p10.csv",
+        "name": "catboost_d6",
+        "members": [
+          "catboost_d6"
+        ],
+        "cv_auc": 0.6239055771657538,
+        "test_auc": 0.6318891675566702,
+        "test_private": 0.6372798464659666,
+        "test_public": 0.6265464177771974
+      },
+      {
+        "file": "p11.csv",
+        "name": "count_with_lightgbm",
+        "members": [
+          "catboost_count_d4",
+          "catboost_count_ordered_d5",
+          "lightgbm"
+        ],
+        "cv_auc": 0.6416862893049032,
+        "test_auc": 0.6449837199348798,
+        "test_private": 0.6547253974240421,
+        "test_public": 0.6352632780816378
+      },
+      {
+        "file": "p12.csv",
+        "name": "count_top2_blend",
+        "members": [
+          "catboost_count_d4",
+          "catboost_count_ordered_d5"
+        ],
+        "cv_auc": 0.641663522708054,
+        "test_auc": 0.6425362901451606,
+        "test_private": 0.6523705112632747,
+        "test_public": 0.632711845773406
+      },
+      {
+        "file": "p13.csv",
+        "name": "count_with_random_forest",
+        "members": [
+          "catboost_count_d4",
+          "catboost_count_ordered_d5",
+          "random_forest"
+        ],
+        "cv_auc": 0.6415561944657655,
+        "test_auc": 0.6450385801543206,
+        "test_private": 0.6548719677660455,
+        "test_public": 0.6352408746368842
+      },
+      {
+        "file": "p14.csv",
+        "name": "count_blend",
+        "members": [
+          "catboost_count_d4",
+          "catboost_count_ordered_d5"
+        ],
+        "cv_auc": 0.6406943161564781,
+        "test_auc": 0.6415158060632243,
+        "test_private": 0.651461727139467,
+        "test_public": 0.6315703902632069
+      }
+    ],
+    "v9_variants": [],
+    "v10_specialist": null,
+    "v11_specialist": null,
+    "v12_stacks": null,
+    "v12_count_specialist": {
+      "attempted": true,
+      "admitted": true,
+      "count_sources": [
+        "feature_0",
+        "feature_1",
+        "feature_5",
+        "feature_7",
+        "feature_8",
+        "feature_17"
+      ],
+      "required_margin": 0.0006,
+      "cv_margin": 0.004839528015923578,
+      "models": [
+        {
+          "name": "catboost_count_d4",
+          "cv_auc": 0.6349994145732238,
+          "fold_auc": [
+            0.6103319308087891,
+            0.6824835646457268,
+            0.6281727379553466
+          ],
+          "seconds": 21.1
+        },
+        {
+          "name": "catboost_count_ordered_d5",
+          "cv_auc": 0.6278962363563038,
+          "fold_auc": [
+            0.6255113370733988,
+            0.6760993425858292,
+            0.6320799059929495
+          ],
+          "seconds": 28.9
+        },
+        {
+          "name": "catboost_count_d6",
+          "cv_auc": 0.625190263702239,
+          "fold_auc": [
+            0.6011863020102852,
+            0.6610956902848796,
+            0.6142773207990598
+          ],
+          "seconds": 34.2
+        }
+      ]
+    },
+    "count_specialist_files": [
+      "p11.csv",
+      "p12.csv",
+      "p13.csv",
+      "p14.csv"
+    ],
+    "cv_hedge_file": "p01.csv",
+    "stdout": "CV_HEDGE p01.csv\nCOUNT_CANDIDATES p11.csv p12.csv p13.csv p14.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv p11.csv p12.csv p13.csv p14.csv\nDONE elapsed_seconds=207.1\n"
+  }
+]

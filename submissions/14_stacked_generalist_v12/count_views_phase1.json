@@ -1,0 +1,420 @@
+[
+  {
+    "dataset": "train_03",
+    "elapsed_seconds": 274.8,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "name": "blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5",
+          "catboost_d6",
+          "spline_logistic"
+        ],
+        "cv_auc": 0.8150446902686639,
+        "test_auc": 0.8169655213686723,
+        "test_private": 0.824090733653752,
+        "test_public": 0.8100691242506766
+      },
+      {
+        "file": "p02.csv",
+        "name": "v5safe_v6safe_v3_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5",
+          "catboost_d6",
+          "logistic"
+        ],
+        "cv_auc": 0.8147395314196121,
+        "test_auc": 0.817410884141313,
+        "test_private": 0.8246519943597099,
+        "test_public": 0.810374030057904
+      },
+      {
+        "file": "p03.csv",
+        "name": "v5safe_v6safe_weighted_top2_0.80",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8144159324903769,
+        "test_auc": 0.8170923735515558,
+        "test_private": 0.8249858704717503,
+        "test_public": 0.8094017077605449
+      },
+      {
+        "file": "p04.csv",
+        "name": "v5safe_v6safe_broad_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8142922370852532,
+        "test_auc": 0.817121756373482,
+        "test_private": 0.8247772079028068,
+        "test_public": 0.8096935724639733
+      },
+      {
+        "file": "p05.csv",
+        "name": "v5safe_v6safe_top2_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8141610350988159,
+        "test_auc": 0.8171044347099096,
+        "test_private": 0.8247872889931775,
+        "test_public": 0.8096429281774409
+      },
+      {
+        "file": "p06.csv",
+        "name": "catboost_d4_smooth",
+        "members": [
+          "catboost_d4_smooth"
+        ],
+        "cv_auc": 0.8140678555785975,
+        "test_auc": 0.8168602112546889,
+        "test_private": 0.8248636172488417,
+        "test_public": 0.8090428773891424
+      },
+      {
+        "file": "p07.csv",
+        "name": "v21_blend",
+        "members": [
+          "catboost_d6",
+          "logistic"
+        ],
+        "cv_auc": 0.8125055075460724,
+        "test_auc": 0.8167806436130127,
+        "test_private": 0.8237430160446153,
+        "test_public": 0.809998798298288
+      },
+      {
+        "file": "p08.csv",
+        "name": "catboost_ordered_d5",
+        "members": [
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8119092238912943,
+        "test_auc": 0.8163629634990145,
+        "test_private": 0.8236538864043534,
+        "test_public": 0.8092881781513988
+      },
+      {
+        "file": "p09.csv",
+        "name": "catboost_d6",
+        "members": [
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8110156143418785,
+        "test_auc": 0.8161195001167912,
+        "test_private": 0.8236183625620948,
+        "test_public": 0.8088270191188982
+      },
+      {
+        "file": "p10.csv",
+        "name": "v21_top2_blend",
+        "members": [
+          "catboost_d6",
+          "logistic"
+        ],
+        "cv_auc": 0.8108596079997964,
+        "test_auc": 0.8151933911732883,
+        "test_private": 0.8214716503737046,
+        "test_public": 0.8090613589534218
+      }
+    ],
+    "v9_variants": [],
+    "v10_specialist": null,
+    "v11_specialist": null,
+    "v12_stacks": {
+      "attempted": false,
+      "models": [],
+      "hedge_blends": []
+    },
+    "cv_hedge_file": "p01.csv",
+    "stdout": "CV_HEDGE p01.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=274.8\n"
+  },
+  {
+    "dataset": "train_07",
+    "elapsed_seconds": 438.9,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "name": "blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "catboost_ordered_d5",
+          "hist_gradient_boosting"
+        ],
+        "cv_auc": 0.8229463972192813,
+        "test_auc": 0.8306324999551908,
+        "test_private": 0.8312034267986059,
+        "test_public": 0.8301838360318623
+      },
+      {
+        "file": "p02.csv",
+        "name": "v6safe_top2_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.8226458564043527,
+        "test_auc": 0.8299493182906408,
+        "test_private": 0.8307436460882391,
+        "test_public": 0.829237010454049
+      },
+      {
+        "file": "p03.csv",
+        "name": "v3_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "catboost_ordered_d5",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8221661487992451,
+        "test_auc": 0.8299328148684912,
+        "test_private": 0.8303209935104185,
+        "test_public": 0.8296235662189789
+      },
+      {
+        "file": "p04.csv",
+        "name": "broad_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.8221211497113938,
+        "test_auc": 0.8297128892647179,
+        "test_private": 0.8305288790456661,
+        "test_public": 0.828959756112198
+      },
+      {
+        "file": "p05.csv",
+        "name": "v6safe_v21_broad_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8217015576431494,
+        "test_auc": 0.8296120483543468,
+        "test_private": 0.8300295696769421,
+        "test_public": 0.8293239074858673
+      },
+      {
+        "file": "p06.csv",
+        "name": "v6safe_v21_blend",
+        "members": [
+          "xgboost",
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8215406227652542,
+        "test_auc": 0.8293031643041502,
+        "test_private": 0.8296258812530297,
+        "test_public": 0.829070257770523
+      },
+      {
+        "file": "p07.csv",
+        "name": "v5safe_v4_blend",
+        "members": [
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8207125916185853,
+        "test_auc": 0.8288192239542791,
+        "test_private": 0.8295255392741225,
+        "test_public": 0.8281218318790483
+      },
+      {
+        "file": "p08.csv",
+        "name": "v5safe_v4_weighted_top2_0.65",
+        "members": [
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8206189249387932,
+        "test_auc": 0.8289118231556495,
+        "test_private": 0.8294788890558588,
+        "test_public": 0.8283553176422579
+      },
+      {
+        "file": "p09.csv",
+        "name": "v5safe_v4_top2_blend",
+        "members": [
+          "catboost_d6",
+          "lightgbm"
+        ],
+        "cv_auc": 0.8193569779667064,
+        "test_auc": 0.8283573681838666,
+        "test_private": 0.8287086403405802,
+        "test_public": 0.828080383755216
+      },
+      {
+        "file": "p10.csv",
+        "name": "xgboost",
+        "members": [
+          "xgboost"
+        ],
+        "cv_auc": 0.8189757300618095,
+        "test_auc": 0.8271943670239461,
+        "test_private": 0.8276067189757244,
+        "test_public": 0.8268620649647331
+      }
+    ],
+    "v9_variants": [],
+    "v10_specialist": null,
+    "v11_specialist": null,
+    "v12_stacks": {
+      "attempted": false,
+      "models": [],
+      "hedge_blends": []
+    },
+    "cv_hedge_file": "p01.csv",
+    "stdout": "CV_HEDGE p01.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=438.9\n"
+  },
+  {
+    "dataset": "train_09",
+    "elapsed_seconds": 119.3,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "name": "v5safe_v6safe_top2_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.641663522708054,
+        "test_auc": 0.6425362901451606,
+        "test_private": 0.6523705112632747,
+        "test_public": 0.632711845773406
+      },
+      {
+        "file": "p02.csv",
+        "name": "v5safe_v4_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5",
+          "lightgbm"
+        ],
+        "cv_auc": 0.640510557196196,
+        "test_auc": 0.6446039184156737,
+        "test_private": 0.6547537994280875,
+        "test_public": 0.6344221887557431
+      },
+      {
+        "file": "p03.csv",
+        "name": "v6safe_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5",
+          "random_forest"
+        ],
+        "cv_auc": 0.6404178646233104,
+        "test_auc": 0.6450763603054411,
+        "test_private": 0.6546045888997929,
+        "test_public": 0.6355545228634355
+      },
+      {
+        "file": "p04.csv",
+        "name": "v5safe_v6safe_broad_blend",
+        "members": [
+          "catboost_d4_smooth",
+          "catboost_ordered_d5",
+          "catboost_d6"
+        ],
+        "cv_auc": 0.638889250263442,
+        "test_auc": 0.6423205292821171,
+        "test_private": 0.6524961201262361,
+        "test_public": 0.632308103694024
+      },
+      {
+        "file": "p05.csv",
+        "name": "catboost_d4_smooth",
+        "members": [
+          "catboost_d4_smooth"
+        ],
+        "cv_auc": 0.6349994145732238,
+        "test_auc": 0.6395315981263925,
+        "test_private": 0.6494911080925869,
+        "test_public": 0.6296084886012073
+      },
+      {
+        "file": "p06.csv",
+        "name": "v21_blend",
+        "members": [
+          "catboost_d6",
+          "random_forest",
+          "lightgbm"
+        ],
+        "cv_auc": 0.6311355978508333,
+        "test_auc": 0.6431329525318101,
+        "test_private": 0.6526887737198737,
+        "test_public": 0.6337073588434958
+      },
+      {
+        "file": "p07.csv",
+        "name": "v21_top2_blend",
+        "members": [
+          "catboost_d6",
+          "random_forest"
+        ],
+        "cv_auc": 0.6304525999453602,
+        "test_auc": 0.6441578566314266,
+        "test_private": 0.6529229502433692,
+        "test_public": 0.6354913931566117
+      },
+      {
+        "file": "p08.csv",
+        "name": "v21_broad_blend",
+        "members": [
+          "catboost_d6",
+          "random_forest",
+          "lightgbm"
+        ],
+        "cv_auc": 0.628242613865508,
+        "test_auc": 0.6426382905531622,
+        "test_private": 0.6519060784928985,
+        "test_public": 0.6335432536106752
+      },
+      {
+        "file": "p09.csv",
+        "name": "catboost_ordered_d5",
+        "members": [
+          "catboost_ordered_d5"
+        ],
+        "cv_auc": 0.6278962363563038,
+        "test_auc": 0.6419144076576306,
+        "test_private": 0.6509955342448963,
+        "test_public": 0.6328070604136091
+      },
+      {
+        "file": "p10.csv",
+        "name": "catboost_d6",
+        "members": [
+          "catboost_d6"
+        ],
+        "cv_auc": 0.625190263702239,
+        "test_auc": 0.6377231908927635,
+        "test_private": 0.6476588188062551,
+        "test_public": 0.6279031063816373
+      }
+    ],
+    "v9_variants": [],
+    "v10_specialist": null,
+    "v11_specialist": null,
+    "v12_stacks": {
+      "attempted": false,
+      "models": [],
+      "hedge_blends": []
+    },
+    "cv_hedge_file": "p01.csv",
+    "stdout": "CV_HEDGE p01.csv\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=119.3\n"
+  }
+]
