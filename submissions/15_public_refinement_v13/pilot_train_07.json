@@ -1,0 +1,179 @@
+[
+  {
+    "dataset": "train_07",
+    "elapsed_seconds": 656.9,
+    "stage1_inputs": [
+      "p01.csv",
+      "p10.csv",
+      "p09.csv"
+    ],
+    "stage1": [
+      {
+        "file": "p01.csv",
+        "private": 0.8346385792343956,
+        "public": 0.8345424503202628,
+        "name": "v3_blend",
+        "family": "cv_hedge",
+        "cv_auc": 0.82756614994957
+      },
+      {
+        "file": "p02.csv",
+        "private": 0.8305993744869877,
+        "public": 0.827942756780329,
+        "name": "catboost_d6",
+        "family": "catboost",
+        "cv_auc": 0.8204225217098016
+      },
+      {
+        "file": "p03.csv",
+        "private": 0.8256755759781621,
+        "public": 0.8277420774471795,
+        "name": "lightgbm",
+        "family": "lightgbm",
+        "cv_auc": 0.8175122734505161
+      },
+      {
+        "file": "p04.csv",
+        "private": 0.7889758572717768,
+        "public": 0.7977920472412592,
+        "name": "extra_trees",
+        "family": "extra_trees",
+        "cv_auc": 0.7713251064456097
+      },
+      {
+        "file": "p05.csv",
+        "private": 0.816833319170231,
+        "public": 0.8191792791387111,
+        "name": "random_forest",
+        "family": "random_forest",
+        "cv_auc": 0.8056369017149132
+      },
+      {
+        "file": "p06.csv",
+        "private": 0.8272371980358577,
+        "public": 0.8285063872519014,
+        "name": "hist_gradient_boosting",
+        "family": "histogram",
+        "cv_auc": 0.818706251706131
+      },
+      {
+        "file": "p07.csv",
+        "private": 0.7481870828986381,
+        "public": 0.7473848874379379,
+        "name": "logistic",
+        "family": "linear",
+        "cv_auc": 0.7370650757968249
+      },
+      {
+        "file": "p08.csv",
+        "private": 0.7502830620019009,
+        "public": 0.7510838524350771,
+        "name": "spline_logistic",
+        "family": "spline",
+        "cv_auc": 0.7406081133595046
+      },
+      {
+        "file": "p09.csv",
+        "private": 0.8323274330009245,
+        "public": 0.8329312545258871,
+        "name": "xgboost",
+        "family": "xgboost",
+        "cv_auc": 0.8241891905443882
+      },
+      {
+        "file": "p10.csv",
+        "private": 0.8340638133376734,
+        "public": 0.8344334689599162,
+        "name": "blend",
+        "family": "ensemble",
+        "cv_auc": 0.8275024949514747
+      }
+    ],
+    "refined": [
+      {
+        "file": "r01.csv",
+        "private": 0.8346040116627147,
+        "public": 0.8345604538489544,
+        "name": "leader90_runner10",
+        "weights": {
+          "first": 0.9,
+          "second": 0.1
+        }
+      },
+      {
+        "file": "r02.csv",
+        "private": 0.8345744051777102,
+        "public": 0.8345803777540398,
+        "name": "leader75_runner25",
+        "weights": {
+          "first": 0.75,
+          "second": 0.25
+        }
+      },
+      {
+        "file": "r03.csv",
+        "private": 0.8344960680187389,
+        "public": 0.8345854187420734,
+        "name": "leader60_runner40",
+        "weights": {
+          "first": 0.6,
+          "second": 0.4
+        }
+      },
+      {
+        "file": "r04.csv",
+        "private": 0.8346709863328465,
+        "public": 0.8346995211061368,
+        "name": "leader85_third15",
+        "weights": {
+          "first": 0.85,
+          "third": 0.15
+        }
+      },
+      {
+        "file": "r05.csv",
+        "private": 0.834492307194968,
+        "public": 0.8347041620157551,
+        "name": "leader65_third35",
+        "weights": {
+          "first": 0.65,
+          "third": 0.35
+        }
+      },
+      {
+        "file": "r06.csv",
+        "private": 0.8345718446168449,
+        "public": 0.834678156918756,
+        "name": "leader65_runner25_third10",
+        "weights": {
+          "first": 0.65,
+          "second": 0.25,
+          "third": 0.1
+        }
+      },
+      {
+        "file": "r07.csv",
+        "private": 0.8345948896646322,
+        "public": 0.8345550127825054,
+        "name": "leader70_runner15_hedge15",
+        "weights": {
+          "first": 0.7,
+          "second": 0.15,
+          "hedge": 0.15
+        }
+      }
+    ],
+    "stage1_leader": "p01.csv",
+    "refined_leader": "r05.csv",
+    "public_finalist": "p01.csv",
+    "hedge": "p10.csv",
+    "selected_private": 0.8346385792343956,
+    "oracle_private": 0.8346709863328465,
+    "stdout": {
+      "stage1": "CV_HEDGE p01.csv\nSTAGE1 p01.csv:cv_hedge p02.csv:catboost p03.csv:lightgbm p04.csv:extra_trees p05.csv:random_forest p06.csv:histogram p07.csv:linear p08.csv:spline p09.csv:xgboost p10.csv:ensemble\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv\nDONE elapsed_seconds=656.9",
+      "refine": "REFINED r01.csv r02.csv r03.csv r04.csv r05.csv r06.csv r07.csv"
+    },
+    "baseline_selected_private": 0.8336722875778712,
+    "baseline_delta": 0.0009662916565243984
+  }
+]
