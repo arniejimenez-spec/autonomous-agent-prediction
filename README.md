@@ -7,13 +7,13 @@ This repository contains an Agent Config for Kaggle's Autonomous Agent Predictio
 | Item | Status |
 |---|---|
 | Best official Kaggle score | **0.822 AUC** |
-| Versions at the official best | v3, v4, v5, v6, v7, v8.1, v9, and v10 |
-| Current candidate | **v11 — strictly gated synthetic-equation discovery, official score pending** |
-| Agent source | [`submissions/13_equation_discovery_v11/agent/`](submissions/13_equation_discovery_v11/agent/) |
-| Kaggle build notebook | [`notebooks/build_agent_submission_v11.ipynb`](notebooks/build_agent_submission_v11.ipynb) |
-| Design notes | [`docs/V11.md`](docs/V11.md) |
+| Versions at the official best | v3, v4, v5, v6, v7, v8.1, v9, v10, and v11 |
+| Current candidate | **v12 — OOF-gated medium-cardinality count specialist** |
+| Agent source | [`submissions/14_stacked_generalist_v12/agent/`](submissions/14_stacked_generalist_v12/agent/) |
+| Kaggle build notebook | [`notebooks/build_agent_submission_v12.ipynb`](notebooks/build_agent_submission_v12.ipynb) |
+| Design notes | [`docs/V12.md`](docs/V12.md) |
 
-The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 restored the compact execution path and returned to 0.822. V9 and V10 also scored 0.822, showing that neither local full-refit gains nor a CV-gated neural specialist transferred visibly to the hidden tasks.
+The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4–v7 remained at 0.822. V8 returned 0.500, indicating an execution-path failure that left the chance-level fallback in place. V8.1 restored the compact execution path and returned to 0.822. V9, V10, and V11 also scored 0.822, showing that full-data refits, a CV-gated neural model, and equation discovery did not transfer visibly to the hidden tasks.
 
 ## Score history
 
@@ -31,11 +31,12 @@ The official score improved from 0.781 to 0.814 and then to 0.822. Versions v4�
 | v8.1 | **0.822** | Caps the frontier at ten, emits a 135-character plan, and selects immediately |
 | v9 | **0.822** | Added repeated-CV and conservative full-data refit candidates; local gains did not transfer |
 | v10 | **0.822** | Replaced v9 refits with one MLP admitted only after a fixed +0.001 train-CV margin |
-| v11 | Pending | Replaces the MLP with equation primitives that must beat the complete historical hedge |
+| v11 | **0.822** | Replaced the MLP with equation primitives gated against the complete historical hedge |
+| v12 | Pending | Adds an isolated medium-cardinality count lane after a fixed OOF margin |
 
-The 16-task replay is a development signal, not a substitute for the hidden Kaggle evaluation. V11 preserves the v8.1 selected-private baseline of **0.805725** with zero regressions. Its offline representation audit found that no standalone equation scout beat the complete historical hedge on any solved task. Eight exact routed replays produced zero admissions; the closest blend reached only **+0.000779 OOF AUC**, below the fixed **+0.0015** hedge margin.
+The solved-task replay is a development signal, not a substitute for hidden Kaggle evaluation. V12 first falsified selection, stacking, identifier, binned-additive, public-weight, and wider-XGBoost hypotheses. Its final isolated count lane is admitted on `train_09`, improving the selected private score from **0.652906** to **0.654725** (+0.001819). It is rejected on `train_03` and `train_07`, preserving their exact baseline predictions and selected scores.
 
-## V11 strategy
+## V12 strategy
 
 The LLM acts as a lightweight orchestrator while a deterministic, pre-tested skill performs the modeling:
 
@@ -43,10 +44,10 @@ The LLM acts as a lightweight orchestrator while a deterministic, pre-tested ski
 2. infer the target, ID, binary-label mapping, feature types, and dataset fingerprint;
 3. route the dataset to a bounded portfolio of CatBoost, LightGBM, ExtraTrees, logistic regression, Random Forest, XGBoost, and DGP probes;
 4. produce leakage-safe out-of-fold predictions and rank-based blends;
-5. on bounded-size mixed or numeric tasks, evaluate regularized unary and pairwise synthetic-equation features;
-6. blend only the strongest equation scout with the strongest established individual model;
-7. expose at most one equation candidate only when it beats the complete historical hedge by at least 0.0015 OOF AUC;
-8. keep the best historical train-CV candidate as one hedge while the other slot explores the strongest public-frontier candidate;
+5. detect medium-cardinality integer counts without relying on feature names or external metadata;
+6. on bounded-size count-heavy tasks, fit an isolated three-CatBoost count-view lane;
+7. expose at most four count candidates only when the lane beats the complete historical hedge by at least 0.0006 OOF AUC;
+8. when admitted, pair the highest-public baseline with the highest-public count specialist; otherwise preserve the public-leader-plus-CV-hedge policy;
 9. call `select_submission` with exactly two valid predictions.
 
 Specialists are activated conservatively:
@@ -73,29 +74,29 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 uv pip install --python .venv\Scripts\python.exe catboost lightgbm xgboost
 ```
 
-Validate and package v11:
+Validate and package v12:
 
 ```powershell
 .\.venv\Scripts\python.exe validate_submission.py `
-  --agent-dir submissions/13_equation_discovery_v11/agent
+  --agent-dir submissions/14_stacked_generalist_v12/agent
 
 .\.venv\Scripts\python.exe scripts/package_submission.py `
-  --experiment 13_equation_discovery_v11
+  --experiment 14_stacked_generalist_v12
 ```
 
 The generated file is:
 
 ```text
-submissions/13_equation_discovery_v11/submission.zip
+submissions/14_stacked_generalist_v12/submission.zip
 ```
 
-The validated v11 build SHA-256 is recorded in [`docs/V11.md`](docs/V11.md).
+The validated v12 build SHA-256 is recorded in [`docs/V12.md`](docs/V12.md) after packaging.
 
 The ZIP is intentionally excluded from Git and can be rebuilt by the notebook, locally, or in CI. It must contain `agent.yaml` at its root; do not zip the parent `agent/` directory.
 
 ## Build in a Kaggle notebook
 
-Upload and run [`notebooks/build_agent_submission_v11.ipynb`](notebooks/build_agent_submission_v11.ipynb). It is self-contained and writes:
+Upload and run [`notebooks/build_agent_submission_v12.ipynb`](notebooks/build_agent_submission_v12.ipynb). It is self-contained and writes:
 
 ```text
 /kaggle/working/submission.zip
@@ -107,8 +108,8 @@ After changing the agent source, regenerate the notebook with:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py `
-  --experiment 13_equation_discovery_v11 `
-  --output notebooks/build_agent_submission_v11.ipynb
+  --experiment 14_stacked_generalist_v12 `
+  --output notebooks/build_agent_submission_v12.ipynb
 ```
 
 ## Local evaluation
@@ -119,7 +120,7 @@ Quick deterministic meta-evaluation:
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   train_13 train_06 train_16 train_11 `
   --fast `
-  --experiment 13_equation_discovery_v11
+  --experiment 14_stacked_generalist_v12
 ```
 
 Run all sixteen solved tasks:
@@ -127,8 +128,10 @@ Run all sixteen solved tasks:
 ```powershell
 .\.venv\Scripts\python.exe scripts/meta_evaluate.py `
   --fast `
-  --experiment 13_equation_discovery_v11
+  --experiment 14_stacked_generalist_v12
 ```
+
+Inspect v12's exact routed evidence in `submissions/14_stacked_generalist_v12/isolated_count_phase1.json` and `isolated_count_train07.json`.
 
 Compare v11's exact two-selection policy with v8.1:
 
@@ -151,7 +154,7 @@ For full agent evaluation, copy `.env.example` to `.env`, configure the API key 
 
 ```powershell
 .\.venv\Scripts\python.exe run_local_eval.py `
-  --submission-dir submissions/13_equation_discovery_v11/agent `
+  --submission-dir submissions/14_stacked_generalist_v12/agent `
   --dataset train_01 `
   --metric roc_auc
 ```
@@ -174,14 +177,15 @@ submissions/
   10_runtime_safe_dgp_v81/          v8.1 runtime-safe official 0.822
   11_full_refit_bagging_v9/         v9 full-refit official 0.822
   12_cv_gated_mlp_v10/              CV-gated neural specialist official 0.822
-  13_equation_discovery_v11/         strictly gated equation-discovery current candidate
+  13_equation_discovery_v11/         equation-discovery official 0.822
+  14_stacked_generalist_v12/         OOF-gated count-view specialist current candidate
 notebooks/                           self-contained Kaggle builders
 scripts/                             packaging, evaluation, and replay tools
 docs/                                version-specific experiment notes
 kaggle-kaggle-skill/                 organizer documentation
 ```
 
-Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), [`docs/V8.1.md`](docs/V8.1.md), [`docs/V9.md`](docs/V9.md), [`docs/V10.md`](docs/V10.md), and [`docs/V11.md`](docs/V11.md).
+Detailed iteration notes are available in [`docs/V2.md`](docs/V2.md), [`docs/V3.md`](docs/V3.md), [`docs/V4.md`](docs/V4.md), [`docs/V5.md`](docs/V5.md), [`docs/V6.md`](docs/V6.md), [`docs/V7.md`](docs/V7.md), [`docs/V8.md`](docs/V8.md), [`docs/V8.1.md`](docs/V8.1.md), [`docs/V9.md`](docs/V9.md), [`docs/V10.md`](docs/V10.md), [`docs/V11.md`](docs/V11.md), and [`docs/V12.md`](docs/V12.md).
 
 The organizer-supplied `sample_submission/` remains unchanged.
 
