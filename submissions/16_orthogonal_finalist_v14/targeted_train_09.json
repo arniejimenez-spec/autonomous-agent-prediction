@@ -1,0 +1,182 @@
+[
+  {
+    "dataset": "train_09",
+    "elapsed_seconds": 196.2,
+    "hedge": {
+      "file": "p01.csv",
+      "private": 0.651438365491069,
+      "public": 0.6330825427717766,
+      "order": 0,
+      "name": "broad_blend",
+      "family": "cv_hedge",
+      "cv_auc": 0.6539639897485267,
+      "diversity_from_hedge": 0.0,
+      "printed_diversity": 0.0
+    },
+    "orthogonal": {
+      "file": "p07.csv",
+      "private": 0.6395108838879672,
+      "public": 0.6297065836843072,
+      "order": 6,
+      "name": "logistic",
+      "family": "linear",
+      "cv_auc": 0.6182366945503271,
+      "diversity_from_hedge": 0.22251430046684317,
+      "printed_diversity": 0.2225
+    },
+    "eligible": [
+      "p02.csv",
+      "p05.csv",
+      "p07.csv",
+      "p11.csv",
+      "p12.csv"
+    ],
+    "selected_private": 0.651438365491069,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "private": 0.651438365491069,
+        "public": 0.6330825427717766,
+        "order": 0,
+        "name": "broad_blend",
+        "family": "cv_hedge",
+        "cv_auc": 0.6539639897485267,
+        "diversity_from_hedge": 0.0,
+        "printed_diversity": 0.0
+      },
+      {
+        "file": "p02.csv",
+        "private": 0.6487344147003014,
+        "public": 0.6307001764591323,
+        "order": 1,
+        "name": "catboost_d6",
+        "family": "catboost",
+        "cv_auc": 0.6491049475067324,
+        "diversity_from_hedge": 0.01495236008065437,
+        "printed_diversity": 0.015
+      },
+      {
+        "file": "p03.csv",
+        "private": 0.6296837904882568,
+        "public": 0.6117615844612267,
+        "order": 2,
+        "name": "lightgbm",
+        "family": "lightgbm",
+        "cv_auc": 0.6001079787164844,
+        "diversity_from_hedge": 0.28796050952664687,
+        "printed_diversity": 0.288
+      },
+      {
+        "file": "p04.csv",
+        "private": 0.62515883120713,
+        "public": 0.6207980939149204,
+        "order": 3,
+        "name": "extra_trees",
+        "family": "extra_trees",
+        "cv_auc": 0.6153128130407067,
+        "diversity_from_hedge": 0.2658536174715461,
+        "printed_diversity": 0.2659
+      },
+      {
+        "file": "p05.csv",
+        "private": 0.6461580729136247,
+        "public": 0.6288782963268432,
+        "order": 4,
+        "name": "random_forest",
+        "family": "random_forest",
+        "cv_auc": 0.6298151352335853,
+        "diversity_from_hedge": 0.14423468261373273,
+        "printed_diversity": 0.1442
+      },
+      {
+        "file": "p06.csv",
+        "private": 0.6334840586351773,
+        "public": 0.6101984641158424,
+        "order": 5,
+        "name": "hist_gradient_boosting",
+        "family": "histogram",
+        "cv_auc": 0.5956782494438445,
+        "diversity_from_hedge": 0.26281180035596163,
+        "printed_diversity": 0.2628
+      },
+      {
+        "file": "p07.csv",
+        "private": 0.6395108838879672,
+        "public": 0.6297065836843072,
+        "order": 6,
+        "name": "logistic",
+        "family": "linear",
+        "cv_auc": 0.6182366945503271,
+        "diversity_from_hedge": 0.22251430046684317,
+        "printed_diversity": 0.2225
+      },
+      {
+        "file": "p08.csv",
+        "private": 0.6266510965013692,
+        "public": 0.6134309611445856,
+        "order": 7,
+        "name": "spline_logistic",
+        "family": "spline",
+        "cv_auc": 0.6042157232622583,
+        "diversity_from_hedge": 0.26378530097384745,
+        "printed_diversity": 0.2638
+      },
+      {
+        "file": "p09.csv",
+        "private": 0.6160247467061276,
+        "public": 0.6016947565857726,
+        "order": 8,
+        "name": "quadratic_logistic",
+        "family": "quadratic",
+        "cv_auc": 0.5811011227184618,
+        "diversity_from_hedge": 0.37655743075285897,
+        "printed_diversity": 0.3766
+      },
+      {
+        "file": "p10.csv",
+        "private": 0.6180088867070461,
+        "public": 0.6186768877582618,
+        "order": 9,
+        "name": "rbf_svc",
+        "family": "rbf_kernel",
+        "cv_auc": 0.6077250315479985,
+        "diversity_from_hedge": 0.3087233640216055,
+        "printed_diversity": 0.3087
+      },
+      {
+        "file": "p11.csv",
+        "private": 0.6488185806390498,
+        "public": 0.6297948372541762,
+        "order": 10,
+        "name": "catboost_d4_smooth",
+        "family": "catboost_shallow",
+        "cv_auc": 0.631472218247102,
+        "diversity_from_hedge": 0.018165004974298626,
+        "printed_diversity": 0.0182
+      },
+      {
+        "file": "p12.csv",
+        "private": 0.6482694218904086,
+        "public": 0.6314858972715645,
+        "order": 11,
+        "name": "catboost_ordered_d5",
+        "family": "catboost_ordered",
+        "cv_auc": 0.6418928148620344,
+        "diversity_from_hedge": 0.013194359934235234,
+        "printed_diversity": 0.0132
+      },
+      {
+        "file": "p13.csv",
+        "private": 0.6533737020484166,
+        "public": 0.635183825865065,
+        "order": 12,
+        "name": "v6_blend",
+        "family": "baseline_safety",
+        "cv_auc": 0.653137887520002,
+        "diversity_from_hedge": 0.010853738761362974,
+        "printed_diversity": 0.0109
+      }
+    ],
+    "stdout": "CV_HEDGE p01.csv\nORTHOGONAL p02.csv:catboost:0.0150 p03.csv:lightgbm:0.2880 p04.csv:extra_trees:0.2659 p05.csv:random_forest:0.1442 p06.csv:histogram:0.2628 p07.csv:linear:0.2225 p08.csv:spline:0.2638 p09.csv:quadratic:0.3766 p10.csv:rbf_kernel:0.3087 p11.csv:catboost_shallow:0.0182 p12.csv:catboost_ordered:0.0132\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv p11.csv p12.csv p13.csv\nDONE elapsed_seconds=196.2"
+  }
+]
