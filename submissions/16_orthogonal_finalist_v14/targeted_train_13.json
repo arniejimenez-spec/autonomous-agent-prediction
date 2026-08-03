@@ -1,0 +1,169 @@
+[
+  {
+    "dataset": "train_13",
+    "elapsed_seconds": 160.6,
+    "hedge": {
+      "file": "p01.csv",
+      "private": 0.6492420369681479,
+      "public": 0.6375306301225205,
+      "order": 0,
+      "name": "top2_blend",
+      "family": "cv_hedge",
+      "cv_auc": 0.6887840000000001,
+      "diversity_from_hedge": 0.0,
+      "printed_diversity": 0.0
+    },
+    "orthogonal": {
+      "file": "p11.csv",
+      "private": 0.6507859631438525,
+      "public": 0.6344176576706306,
+      "order": 10,
+      "name": "catboost_d4_smooth",
+      "family": "catboost_shallow",
+      "cv_auc": 0.65296,
+      "diversity_from_hedge": 0.07165578804536077,
+      "printed_diversity": 0.0717
+    },
+    "eligible": [
+      "p02.csv",
+      "p11.csv",
+      "p12.csv"
+    ],
+    "selected_private": 0.6507859631438525,
+    "scores": [
+      {
+        "file": "p01.csv",
+        "private": 0.6492420369681479,
+        "public": 0.6375306301225205,
+        "order": 0,
+        "name": "top2_blend",
+        "family": "cv_hedge",
+        "cv_auc": 0.6887840000000001,
+        "diversity_from_hedge": 0.0,
+        "printed_diversity": 0.0
+      },
+      {
+        "file": "p02.csv",
+        "private": 0.6417063268253074,
+        "public": 0.6352427009708039,
+        "order": 1,
+        "name": "catboost_d6",
+        "family": "catboost",
+        "cv_auc": 0.667624,
+        "diversity_from_hedge": 0.05649025187026091,
+        "printed_diversity": 0.0565
+      },
+      {
+        "file": "p03.csv",
+        "private": 0.6236872947491789,
+        "public": 0.6137970151880607,
+        "order": 2,
+        "name": "lightgbm",
+        "family": "lightgbm",
+        "cv_auc": 0.6042879999999999,
+        "diversity_from_hedge": 0.2312845609338382,
+        "printed_diversity": 0.2313
+      },
+      {
+        "file": "p04.csv",
+        "private": 0.5706192424769699,
+        "public": 0.5580325521302085,
+        "order": 3,
+        "name": "extra_trees",
+        "family": "extra_trees",
+        "cv_auc": 0.558432,
+        "diversity_from_hedge": 0.49885977338626886,
+        "printed_diversity": 0.4989
+      },
+      {
+        "file": "p05.csv",
+        "private": 0.6207776831107323,
+        "public": 0.605371221484886,
+        "order": 4,
+        "name": "hist_gradient_boosting",
+        "family": "histogram",
+        "cv_auc": 0.551408,
+        "diversity_from_hedge": 0.2691352727136167,
+        "printed_diversity": 0.2691
+      },
+      {
+        "file": "p06.csv",
+        "private": 0.639249916999668,
+        "public": 0.6277029908119632,
+        "order": 5,
+        "name": "logistic",
+        "family": "linear",
+        "cv_auc": 0.65136,
+        "diversity_from_hedge": 0.1702096019967192,
+        "printed_diversity": 0.1702
+      },
+      {
+        "file": "p07.csv",
+        "private": 0.6215786463145853,
+        "public": 0.6115096460385842,
+        "order": 6,
+        "name": "spline_logistic",
+        "family": "spline",
+        "cv_auc": 0.631232,
+        "diversity_from_hedge": 0.2390260517979147,
+        "printed_diversity": 0.239
+      },
+      {
+        "file": "p08.csv",
+        "private": 0.5173635094540379,
+        "public": 0.5039485757943032,
+        "order": 7,
+        "name": "rbf_svc",
+        "family": "rbf_kernel",
+        "cv_auc": 0.539696,
+        "diversity_from_hedge": 0.7785026760863648,
+        "printed_diversity": 0.7785
+      },
+      {
+        "file": "p09.csv",
+        "private": 0.6482370729482918,
+        "public": 0.6365484661938647,
+        "order": 8,
+        "name": "blend",
+        "family": "ensemble",
+        "cv_auc": 0.686648,
+        "diversity_from_hedge": 0.007008877334061858,
+        "printed_diversity": 0.007
+      },
+      {
+        "file": "p10.csv",
+        "private": 0.6454642618570474,
+        "public": 0.6368619074476297,
+        "order": 9,
+        "name": "v21_blend",
+        "family": "ensemble",
+        "cv_auc": 0.683808,
+        "diversity_from_hedge": 0.038897814059848934,
+        "printed_diversity": 0.0389
+      },
+      {
+        "file": "p11.csv",
+        "private": 0.6507859631438525,
+        "public": 0.6344176576706306,
+        "order": 10,
+        "name": "catboost_d4_smooth",
+        "family": "catboost_shallow",
+        "cv_auc": 0.65296,
+        "diversity_from_hedge": 0.07165578804536077,
+        "printed_diversity": 0.0717
+      },
+      {
+        "file": "p12.csv",
+        "private": 0.6513947655790624,
+        "public": 0.6367155868623475,
+        "order": 11,
+        "name": "catboost_ordered_d5",
+        "family": "catboost_ordered",
+        "cv_auc": 0.658512,
+        "diversity_from_hedge": 0.05649026384119504,
+        "printed_diversity": 0.0565
+      }
+    ],
+    "stdout": "CV_HEDGE p01.csv\nORTHOGONAL p02.csv:catboost:0.0565 p03.csv:lightgbm:0.2313 p04.csv:extra_trees:0.4989 p05.csv:histogram:0.2691 p06.csv:linear:0.1702 p07.csv:spline:0.2390 p08.csv:rbf_kernel:0.7785 p11.csv:catboost_shallow:0.0717 p12.csv:catboost_ordered:0.0565\nCANDIDATES p01.csv p02.csv p03.csv p04.csv p05.csv p06.csv p07.csv p08.csv p09.csv p10.csv p11.csv p12.csv\nDONE elapsed_seconds=160.6"
+  }
+]

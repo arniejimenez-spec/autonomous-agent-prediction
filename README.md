@@ -1,21 +1,21 @@
-# Autonomous Agent Prediction - Two-Stage Tabular Agent
+# Autonomous Agent Prediction - Orthogonal Finalist Agent
 
-This repository contains an Agent Config for Kaggle's Autonomous Agent Prediction beta competition. In each evaluation session, the agent solves two unseen binary-classification mini-competitions, submits prediction candidates through Kaggle's tools, and selects exactly two finalists.
+This repository contains an Agent Config for Kaggle's Autonomous Agent Prediction beta competition. In each evaluation session, the agent solves two unseen binary-classification mini-competitions, submits prediction candidates, and selects exactly two finalists.
 
 ## Current status
 
 | Item | Status |
 |---|---|
 | Best official Kaggle score | **0.822 AUC** |
-| Versions at the official best | v3-v7, v8.1, and v9-v12 |
-| Current experiment | **v13 - public-led family refinement** |
-| Agent source | [`submissions/15_public_refinement_v13/agent/`](submissions/15_public_refinement_v13/agent/) |
-| Kaggle build notebook | [`notebooks/build_agent_submission_v13.ipynb`](notebooks/build_agent_submission_v13.ipynb) |
-| Design notes | [`docs/V13.md`](docs/V13.md) |
+| Versions at the official best | v3-v7 and v8.1-v13 |
+| Current experiment | **v14 - orthogonal direct-model finalist** |
+| Agent source | [`submissions/16_orthogonal_finalist_v14/agent/`](submissions/16_orthogonal_finalist_v14/agent/) |
+| Kaggle build notebook | [`notebooks/build_agent_submission_v14.ipynb`](notebooks/build_agent_submission_v14.ipynb) |
+| Design notes | [`docs/V14.md`](docs/V14.md) |
 
-The official score progressed from 0.781 to 0.814 and then 0.822. V4 through V7 remained at 0.822. V8 scored 0.500 after an execution-path failure, while the runtime-safe V8.1 restored 0.822. V9 through V12 also scored 0.822, despite testing full-data refits, a CV-gated MLP, equation discovery, and a count-view specialist.
+The official score progressed from 0.781 to 0.814 and then 0.822. V8 scored 0.500 after an execution failure, while V8.1 restored 0.822. Every valid experiment from V9 through V13 also scored exactly 0.822. V13's within-session public blend refinement did not break the plateau.
 
-V13 is deliberately different: it uses the public score as bounded feedback between two modeling stages. It is an experimental plateau-breaker, not a proven local upgrade. Its solved-task replay was approximately neutral against an older V8 meta snapshot, with useful gains on several generators and one large model-version mismatch on Train 13. Hidden Kaggle evaluation remains the deciding test.
+V14 changes how the second selection slot is used. It always retains the train-only p01 hedge, then forces the other finalist to be a direct model family with meaningful prediction disagreement. It does not spend the second slot on another ensemble close to p01.
 
 ## Score history
 
@@ -23,100 +23,94 @@ V13 is deliberately different: it uses the public score as bounded feedback betw
 |---|---:|---|
 | v1 | 0.781 | Initial robust tabular AutoML agent |
 | v2 | Invalid | Finished without calling `submit_predictions` |
-| v2.1 | 0.814 | Guaranteed an initial valid submission and fixed persistent-work execution |
-| v3 | **0.822** | Small-data CatBoost specialists, weighted blends, and explicit fallbacks |
-| v4 | **0.822** | Two-finalist selection and routed numeric seed averaging |
+| v2.1 | 0.814 | Guaranteed an initial valid submission and persistent-work execution |
+| v3 | **0.822** | Small-data CatBoost specialists and explicit fallbacks |
+| v4 | **0.822** | Two-finalist selection and numeric seed averaging |
 | v5 | **0.822** | Regularized quadratic interactions |
 | v6 | **0.822** | Routed XGBoost and Random Forest diversity |
 | v7 | **0.822** | Dataset fingerprinting and deterministic baseline hedge |
-| v8 | 0.500 | Runtime/execution failure left the chance-level fallback in place |
-| v8.1 | **0.822** | Compact plan, bounded frontier, and immediate final selection |
-| v9 | **0.822** | Conservative full-data refits and repeated CV |
+| v8 | 0.500 | Execution failure left the chance-level fallback in place |
+| v8.1 | **0.822** | Compact plan, bounded frontier, and immediate selection |
+| v9 | **0.822** | Conservative full-data refits |
 | v10 | **0.822** | CV-gated neural specialist |
-| v11 | **0.822** | Equation primitives gated against the historical hedge |
+| v11 | **0.822** | Equation primitives |
 | v12 | **0.822** | OOF-gated count-view CatBoost lane |
-| v13 | Pending | Public-led two-stage refinement with the CV hedge retained |
+| v13 | **0.822** | Public-led two-stage blend refinement |
+| v14 | Pending | p01 plus a public-competitive orthogonal direct family |
 
-## V13 strategy
-
-The LLM acts only as an orchestrator. Deterministic Python scripts perform the modeling and blending.
+## V14 strategy
 
 1. Submit `sample_submission.csv` immediately as a valid fallback.
-2. Run a leakage-safe Stage 1 portfolio and emit p01-p13.
-3. Reserve p01 for the strongest train-only CV hedge.
-4. Submit the Stage 1 files and rank them by returned public AUC.
-5. Pass the three public-leading filenames, plus p01, to `refine.py`.
-6. Emit eight bounded rank blends around those leaders.
-7. Allow a refined prediction to replace the Stage 1 public leader only after a public gain of at least 0.0001.
-8. Select the public-led finalist and p01; if p01 is already the leader, use the highest-public other modeled submission.
+2. Run the established leakage-safe model portfolio and emit at most p01-p13.
+3. Reserve p01 for the strongest train-only CV candidate.
+4. Measure each direct model's rank disagreement with p01.
+5. Submit every modeled candidate and identify the highest-public direct model.
+6. Keep direct models within 0.005 public AUC of that direct-model leader.
+7. Choose the eligible model with the greatest rank disagreement from p01.
+8. Select p01 and that orthogonal direct model as the two finalists.
 
-The complete session uses at most 22 prediction submissions: one fallback, thirteen Stage 1 candidates, and eight refined candidates. This stays below Kaggle's limit of 30. Stage 2 only blends saved predictions, so a refinement failure cannot invalidate the Stage 1 result.
+Direct families include CatBoost, LightGBM, ExtraTrees, Random Forest, histogram boosting, logistic/spline models, XGBoost, quadratic interactions, target encoding, and the small-data RBF kernel when routed. Ensembles are never eligible for the orthogonal slot.
+
+The session uses at most 14 prediction submissions: one fallback and thirteen modeled candidates. V14 removes V13's Stage 2 script and eight public-tuned blend submissions.
 
 ## Local evidence
 
-The repository-level simulator reproduces the interaction loop using the Public and Private rows in each solved `solution.csv`.
+The policy is intentionally not optimized for mean solved-task AUC. Replaying the highest-public direct-family approximation reduced the V13 mean by about 0.00058, while p01 contained the loss on many tasks. This is the cost of turning the second slot into a high-disagreement bet.
 
-- Stage 2 improved selected private AUC by +0.001981 on Train 09 and +0.001420 on Train 10.
-- It also produced smaller positive results on Trains 03, 04, and 05.
-- The full diagnostic replay was approximately neutral against the older V8 snapshot (`-0.00004` mean at the selected threshold).
-- Train 13 exposed a model-version mismatch and candidate-frontier failure. The final agent appends shallow/ordered CatBoost and a specialist-excluding safety blend, improving that replay from 0.649242 to 0.650725, but it does not erase the mismatch with the older snapshot.
-- The predeclared +0.002 mean-improvement target was not met. V13 should therefore be treated as a measured hidden-leaderboard experiment, not as a locally proven replacement for V12.
+Exact final-policy controls:
 
-See [`docs/V13.md`](docs/V13.md) for exact policy details and artifact hashes.
+- Train 13 selected shallow CatBoost at diversity 0.0717 and scored 0.650786, slightly above V13's final 0.650725 replay.
+- Train 09 selected logistic at diversity 0.2225, but p01 remained the better finalist at 0.651438, demonstrating the intended downside containment.
+- On the saved Train 11 frontier, LightGBM is the only direct family within the public tolerance and improves selected private AUC from 0.825635 to 0.826487.
+- The complete stdout plan was 395 characters on Train 13, below the 500-character capture limit.
 
-## Validate and package V13
+V14 is a controlled hidden-leaderboard experiment. It assumes p01 was the stable contributor to the repeated 0.822 result; the official evaluation is the only way to confirm that assumption.
 
-Python 3.13 is recommended because the evaluator dependency chain does not currently build cleanly on Python 3.14.
+## Validate and package V14
 
-```powershell
-uv python install 3.13
-uv venv --python 3.13 .venv
-uv pip install --python .venv\Scripts\python.exe -r requirements.txt
-uv pip install --python .venv\Scripts\python.exe catboost lightgbm xgboost
-```
+Python 3.13 is recommended.
 
 ```powershell
 .\.venv\Scripts\python.exe validate_submission.py `
-  --agent-dir submissions/15_public_refinement_v13/agent
+  --agent-dir submissions/16_orthogonal_finalist_v14/agent
 
 .\.venv\Scripts\python.exe scripts/package_submission.py `
-  --experiment 15_public_refinement_v13
+  --experiment 16_orthogonal_finalist_v14
 ```
 
-The local artifact is `submissions/15_public_refinement_v13/submission.zip`. The ZIP is intentionally ignored by Git and must contain `agent.yaml` at its root.
+The generated artifact is `submissions/16_orthogonal_finalist_v14/submission.zip`. It must contain `agent.yaml` at the ZIP root.
 
 ## Build in a Kaggle notebook
 
-Upload [`notebooks/build_agent_submission_v13.ipynb`](notebooks/build_agent_submission_v13.ipynb) as a Kaggle notebook, run all cells, and download `/kaggle/working/submission.zip` from the notebook outputs.
+Upload [`notebooks/build_agent_submission_v14.ipynb`](notebooks/build_agent_submission_v14.ipynb), run all cells, and download `/kaggle/working/submission.zip`.
 
-Regenerate the notebook after any agent change:
+Regenerate it after an agent change:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/build_notebook.py `
-  --experiment 15_public_refinement_v13 `
-  --output notebooks/build_agent_submission_v13.ipynb
+  --experiment 16_orthogonal_finalist_v14 `
+  --output notebooks/build_agent_submission_v14.ipynb
 ```
 
-## Reproduce the two-stage replay
+## Reproduce the selection tests
 
-Run selected tasks:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/evaluate_v13_two_stage.py `
-  train_03 train_09 train_13 `
-  --output submissions/15_public_refinement_v13/replay.json
-```
-
-Replay replacement thresholds without retraining:
+Replay the approximate policy without retraining:
 
 ```powershell
-python scripts/analyze_v13_policy.py `
-  submissions/15_public_refinement_v13/pilot_train_01.json `
+python scripts/analyze_v14_selection.py `
   submissions/15_public_refinement_v13/batch_a.json `
   submissions/15_public_refinement_v13/batch_b.json
 ```
 
-The supplied `solution.csv` files are used only by repository-level evaluation scripts. They are never bundled into the Agent Config.
+Run the exact V14 policy on solved tasks:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/evaluate_v14_orthogonal.py `
+  train_09 train_13 `
+  --output submissions/16_orthogonal_finalist_v14/targeted_results.json
+```
+
+The supplied `solution.csv` files are used only by repository-level evaluation scripts and are never bundled into the Agent Config.
 
 ## Repository map
 
@@ -135,7 +129,8 @@ submissions/11_full_refit_bagging_v9/         v9
 submissions/12_cv_gated_mlp_v10/              v10
 submissions/13_equation_discovery_v11/        v11
 submissions/14_stacked_generalist_v12/        v12
-submissions/15_public_refinement_v13/          v13 current experiment
+submissions/15_public_refinement_v13/          v13
+submissions/16_orthogonal_finalist_v14/        v14 current experiment
 notebooks/                                     self-contained Kaggle builders
 scripts/                                       packaging and replay tools
 docs/                                          version-specific design notes
